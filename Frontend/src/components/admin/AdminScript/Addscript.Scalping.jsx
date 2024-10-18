@@ -24,6 +24,7 @@ const AddClient = () => {
       timerProgressBar: true
     });
   }
+
   const formik = useFormik({
     initialValues: {
       MainStrategy: location.state.data.selectStrategyType,
@@ -626,8 +627,6 @@ const AddClient = () => {
     },
   ];
 
-  console.log(formik.values)
-
   const getSymbol = async () => {
     if (formik.values.Exchange) {
       const data = { Exchange: formik.values.Exchange, Instrument: formik.values.Instrument }
@@ -678,12 +677,12 @@ const AddClient = () => {
         })
     }
   }
+
   useEffect(() => {
     getStrikePrice()
   }, [formik.values.Instrument, formik.values.Exchange, formik.values.Symbol])
 
   const get_Exchange = async () => {
-
     await GetExchange()
       .then((response) => {
         if (response.Status) {
@@ -698,6 +697,7 @@ const AddClient = () => {
 
       })
   }
+  
   useEffect(() => {
     get_Exchange()
   }, [])
