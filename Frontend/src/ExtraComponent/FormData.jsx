@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { MoveLeft, Plus, EyeOff, Eye } from "lucide-react";
+import { MoveLeft, Plus, EyeOff, Eye, Heading5Icon } from "lucide-react";
 import * as React from 'react';
 import dayjs from 'dayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -806,6 +806,21 @@ const DynamicForm = ({
                                       {formik.errors[field.name]}
                                     </div>
                                   ) : null}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                        </>
+                      ): field.type === "heading" ? (
+                        <>
+                          <div className={`col-lg-${field.col_size}`}>
+                            <div className="row d-flex">
+                              <div className="col-lg-12">
+                                <div className="form-group input-block mt-3">
+                                  <h5 style={{fontWeight:600}}>
+                                    {field.label}
+                                  </h5>
                                 </div>
                               </div>
                             </div>
