@@ -9,50 +9,26 @@ const AddClient = () => {
 
     const location = useLocation()
     const navigate = useNavigate()
-    const [getSymbolData, setSymbolData] = useState({
-        loading: true,
-        data: []
-    })
-
+    const [getSymbolData, setSymbolData] = useState({ loading: true, data: [] })
     const [getAllExchange, setAllExchange] = useState([])
-    const [getStricke, setStricke] = useState({
-        loading: true,
-        data: []
-    })
-
-    const [getTimeFrame, setTimeFrame] = useState({
-        loading: true,
-        data: []
-    })
-
-    const [getExpiryDate, setExpiryDate] = useState({
-        loading: true,
-        data: []
-    })
-
-    const [getChartPattern, setChartPattern] = useState({
-        loading: true,
-        data: []
-    })
-
-    const [getPattern, setPattern] = useState({
-        loading: true,
-        data: []
-    })
+    const [getStricke, setStricke] = useState({ loading: true, data: [] })
+    const [getTimeFrame, setTimeFrame] = useState({ loading: true, data: [] })
+    const [getExpiryDate, setExpiryDate] = useState({ loading: true, data: [] })
+    const [getChartPattern, setChartPattern] = useState({ loading: true, data: [] })
+    const [getPattern, setPattern] = useState({ loading: true, data: [] })
 
     const SweentAlertFun = (text) => {
         Swal.fire({
-          title: "Error",
-          text: text,
-          icon: "error",
-          timer: 1500,
-          timerProgressBar: true
+            title: "Error",
+            text: text,
+            icon: "error",
+            timer: 1500,
+            timerProgressBar: true
         });
-    
-      }
+
+    }
 
     const formik = useFormik({
-
         initialValues: {
             MainStrategy: location.state.data.selectStrategyType,
             Username: location.state.data.selectGroup,
@@ -93,8 +69,6 @@ const AddClient = () => {
             CEDeepHigher: 0.0,
             PEDeepLower: 0.0,
             PEDeepHigher: 0.0,
-
-
         },
 
         validate: (values) => {
@@ -150,21 +124,20 @@ const AddClient = () => {
             }
             if (!values.ExitTime) {
                 errors.ExitTime = "Please Select Exit Time.";
-              } else if (values.ExitTime > maxTime) {
+            } else if (values.ExitTime > maxTime) {
                 errors.ExitTime = "Exit Time Must be Before 15:29:59.";
-              }
-              else if (values.ExitTime < minTime) {
+            }
+            else if (values.ExitTime < minTime) {
                 errors.ExitTime = "Exit Time Must be After 09:15:00.";
-              }
-              if (!values.EntryTime) {
+            }
+            if (!values.EntryTime) {
                 errors.EntryTime = "Please Select Entry Time.";
-              } else if (values.EntryTime < minTime) {
+            } else if (values.EntryTime < minTime) {
                 errors.EntryTime = "Entry Time Must be After 09:15:00.";
-              }
-              else if (values.EntryTime > maxTime) {
+            }
+            else if (values.EntryTime > maxTime) {
                 errors.EntryTime = "Entry Time Must be Before 15:29:59.";
-              }
-
+            }
             return errors;
         },
 
@@ -212,7 +185,7 @@ const AddClient = () => {
             }
             if (values.EntryTime >= values.ExitTime) {
                 return SweentAlertFun("Exit Time should be greater than Entry Time")
-              }
+            }
 
             await AddAdminScript(req)
                 .then((response) => {
@@ -258,12 +231,7 @@ const AddClient = () => {
         formik.setFieldValue('TType', "BUY")
     }, [])
 
-
-
-
-
     const get_Exchange = async () => {
-
         await GetExchange()
             .then((response) => {
                 if (response.Status) {
@@ -285,7 +253,15 @@ const AddClient = () => {
 
 
     const fields = [
-
+        {
+            name: "Heading",
+            label: "Symbol Selection",
+            type: "heading",
+            hiding: false,
+            label_size: 12,
+            col_size: 12,
+            disable: false,
+        },
         {
             name: "Exchange",
             label: "Exchange",
@@ -296,10 +272,9 @@ const AddClient = () => {
             })),
             hiding: false,
             label_size: 12,
-            col_size: formik.values.Exchange =="NFO" && (formik.values.Instrument=='FUTIDX' ||  formik.values.Instrument=='FUTSTK') ? 3 :  formik.values.Exchange =="NFO" && (formik.values.Instrument=='OPTIDX' ||  formik.values.Instrument=='OPTSTK') ? 4 : 6,
+            col_size: formik.values.Exchange == "NFO" && (formik.values.Instrument == 'FUTIDX' || formik.values.Instrument == 'FUTSTK') ? 3 : formik.values.Exchange == "NFO" && (formik.values.Instrument == 'OPTIDX' || formik.values.Instrument == 'OPTSTK') ? 4 : 6,
             disable: false,
         },
-        
 
         {
             name: "Instrument",
@@ -328,7 +303,7 @@ const AddClient = () => {
             showWhen: (values) => values.Exchange == "NFO" || values.Exchange == "CDS" || values.Exchange == "MCX",
             hiding: false,
             label_size: 12,
-            col_size: formik.values.Exchange =="NFO" && (formik.values.Instrument=='FUTIDX' ||  formik.values.Instrument=='FUTSTK') ? 3 :  formik.values.Exchange =="NFO" && (formik.values.Instrument=='OPTIDX' ||  formik.values.Instrument=='OPTSTK') ? 4 : 6,
+            col_size: formik.values.Exchange == "NFO" && (formik.values.Instrument == 'FUTIDX' || formik.values.Instrument == 'FUTSTK') ? 3 : formik.values.Exchange == "NFO" && (formik.values.Instrument == 'OPTIDX' || formik.values.Instrument == 'OPTSTK') ? 4 : 6,
             disable: false,
         },
         {
@@ -342,7 +317,7 @@ const AddClient = () => {
             showWhen: (values) => values.Exchange === "NFO" || values.Exchange === "NSE" || values.Exchange === "CDS" || values.Exchange === "MCX",
             label_size: 12,
             hiding: false,
-            col_size:formik.values.Exchange =="NFO" && (formik.values.Instrument=='FUTIDX' ||  formik.values.Instrument=='FUTSTK') ? 3 :  formik.values.Exchange =="NFO" && (formik.values.Instrument=='OPTIDX' ||  formik.values.Instrument=='OPTSTK') ? 4: 6,
+            col_size: formik.values.Exchange == "NFO" && (formik.values.Instrument == 'FUTIDX' || formik.values.Instrument == 'FUTSTK') ? 3 : formik.values.Exchange == "NFO" && (formik.values.Instrument == 'OPTIDX' || formik.values.Instrument == 'OPTSTK') ? 4 : 6,
             disable: false,
         },
         {
@@ -384,7 +359,17 @@ const AddClient = () => {
             showWhen: (values) => values.Exchange === "NFO" || values.Exchange === "CDS" || values.Exchange === "MCX",
             label_size: 12,
             hiding: false,
-            col_size: formik.values.Exchange =="NFO" && (formik.values.Instrument=='FUTIDX' ||  formik.values.Instrument=='FUTSTK') ? 3 :  formik.values.Exchange =="NFO" && (formik.values.Instrument=='OPTIDX' ||  formik.values.Instrument=='OPTSTK') ? 4 : 4,
+            col_size: formik.values.Exchange == "NFO" && (formik.values.Instrument == 'FUTIDX' || formik.values.Instrument == 'FUTSTK') ? 3 : formik.values.Exchange == "NFO" && (formik.values.Instrument == 'OPTIDX' || formik.values.Instrument == 'OPTSTK') ? 4 : 4,
+            disable: false,
+        },
+
+        {
+            name: "Heading",
+            label: "Entry Rule",
+            type: "heading",
+            hiding: false,
+            label_size: 12,
+            col_size: 12,
             disable: false,
         },
         {
@@ -427,29 +412,35 @@ const AddClient = () => {
                     label: item,
                     value: item
                 })),
-
-
             label_size: 12,
             hiding: false,
             col_size: 4,
             disable: false,
         },
-         
+
         {
-            name: "TStype",
-            label: "Measurement Type",
+            name: "Heading",
+            label: "Exit Rule",
+            type: "heading",
+            hiding: false,
+            label_size: 12,
+            col_size: 12,
+            disable: false,
+        },
+        {
+            name: "TType",
+            label: "Transaction Type",
             type: "select",
             options: [
-                { label: "Point", value: "Point" },
-                { label: "Percantage", value: "Percantage" },
-            ],
+                { label: "BUY", value: "BUY" },
+                { label: "SELL", value: "SELL" },
 
+            ],
             label_size: 12,
             hiding: false,
             col_size: 4,
             disable: false,
         },
-
         {
             name: "Targetvalue",
             label: "Target",
@@ -471,20 +462,33 @@ const AddClient = () => {
             col_size: 4,
             disable: false,
         },
+
         {
-            name: "TType",
-            label: "Transaction Type",
+            name: "Heading",
+            label: "Risk Management",
+            type: "heading",
+            hiding: false,
+            label_size: 12,
+            col_size: 12,
+            disable: false,
+        },
+
+        {
+
+            name: "TStype",
+            label: "Measurement Type",
             type: "select",
             options: [
-                { label: "BUY", value: "BUY" },
-                { label: "SELL", value: "SELL" },
-
+                { label: "Point", value: "Point" },
+                { label: "Percantage", value: "Percantage" },
             ],
+
             label_size: 12,
             hiding: false,
             col_size: 4,
             disable: false,
         },
+
         {
             name: "Quantity",
             label: formik.values.Exchange == "NFO" ? "Lot" : "Quantity",
@@ -496,6 +500,15 @@ const AddClient = () => {
             disable: false,
         },
 
+        {
+            name: "Heading",
+            label: "Time Duration",
+            type: "heading",
+            hiding: false,
+            label_size: 12,
+            col_size: 12,
+            disable: false,
+        },
         {
             name: "ExitDay",
             label: "Exit Day",
@@ -705,10 +718,10 @@ const AddClient = () => {
     useEffect(() => {
         formik.setFieldValue('ETPattern', "");
     }, [formik.values.Strategy])
-    
+
     useEffect(() => {
         formik.setFieldValue('Symbol', "");
-    }, [formik.values.Instrument ])
+    }, [formik.values.Instrument])
 
 
     useEffect(() => {
@@ -726,7 +739,7 @@ const AddClient = () => {
         <>
             <AddForm
                 fields={fields.filter((field) => !field.showWhen || field.showWhen(formik.values))}
-                
+
                 page_title={`Add Script - Pattern Script  , Group Name : ${location.state.data.selectGroup}`}
                 btn_name="Add"
                 btn_name1="Cancel"

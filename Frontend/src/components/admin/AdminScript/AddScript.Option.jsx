@@ -9,10 +9,7 @@ import { AddAdminScript, GET_EXPIRY_DATE } from '../../CommonAPI/Admin'
 const AddClient = () => {
     const location = useLocation()
     const navigate = useNavigate()
-    const [getExpiry, setExpiry] = useState({
-        loading: true,
-        data: []
-    })
+    const [getExpiry, setExpiry] = useState({ loading: true, data: [] })
 
 
     const SweentAlertFun = (text) => {
@@ -385,6 +382,15 @@ const AddClient = () => {
             hiding: false,
         },
         {
+            name: "Heading",
+            label: "Symbol Selection",
+            type: "heading",
+            hiding: false,
+            label_size: 12,
+            col_size: 12,
+            disable: false,
+        },
+        {
             name: "Symbol",
             label: "Symbol",
             type: "select",
@@ -413,12 +419,12 @@ const AddClient = () => {
             disable: false,
         },
         {
-            name: "Quantity",
-            label: "Lot",
-            type: "text3",
+            name: "Heading",
+            label: "Entry Rule",
+            type: "heading",
             hiding: false,
             label_size: 12,
-            col_size: 4,
+            col_size: 12,
             disable: false,
         },
         {
@@ -448,6 +454,17 @@ const AddClient = () => {
             col_size: 4,
             disable: false,
         },
+      
+        {
+            name: "DeepStrike",
+            label: "Deep Strike",
+            type: "number",
+            showWhen: (value) => (value.Measurment_Type == "Ladder/Coverd" && value.Measurment_Type != "Shifting/FourLeg" && (value.Strategy == 'BullCallLadder' || value.Strategy == "BullPutLadder")) || value.Strategy == "LongIronCondor" || value.Strategy == "ShortIronCondor",
+            hiding: false,
+            label_size: 12,
+            col_size: 4,
+            disable: false,
+        },
         {
             name: "Lower_Range",
             label: "Lower Range",
@@ -469,16 +486,6 @@ const AddClient = () => {
             disable: false,
         },
         {
-            name: "DeepStrike",
-            label: "Deep Strike",
-            type: "number",
-            showWhen: (value) => (value.Measurment_Type == "Ladder/Coverd" && value.Measurment_Type != "Shifting/FourLeg" && (value.Strategy == 'BullCallLadder' || value.Strategy == "BullPutLadder")) || value.Strategy == "LongIronCondor" || value.Strategy == "ShortIronCondor",
-            hiding: false,
-            label_size: 12,
-            col_size: 4,
-            disable: false,
-        },
-        {
             name: "Shifting_Value",
             label: "Number of Shifts",
             type: "text3",
@@ -488,6 +495,27 @@ const AddClient = () => {
             col_size: 4,
             disable: false,
         },
+        {
+            name: "Shifting_Point",
+            label: "Shifting Point",
+            type: "text3",
+            hiding: false,
+            label_size: 12,
+            showWhen: (value) => value.Measurment_Type == "Shifting/FourLeg" && (value.Strategy == 'ShortShifting' || value.Strategy == 'LongShifting'),
+            col_size: 4,
+            disable: false,
+        },
+
+        {
+            name: "Heading",
+            label: "Exit Rule",
+            type: "heading",
+            hiding: false,
+            label_size: 12,
+            col_size: 12,
+            disable: false,
+        },
+
         {
             name: "ETPattern",
             label: "Risk Handle",
@@ -514,6 +542,15 @@ const AddClient = () => {
         },
 
         {
+            name: "Heading",
+            label: "Risk Management",
+            type: "heading",
+            hiding: false,
+            label_size: 12,
+            col_size: 12,
+            disable: false,
+        },
+        {
             name: "TStype",
             label: "Measurement Type",
             type: "select",
@@ -531,6 +568,7 @@ const AddClient = () => {
             col_size: 4,
             disable: false,
         },
+
         {
             name: "Targetvalue",
             label: "Target Value",
@@ -553,16 +591,26 @@ const AddClient = () => {
             disable: false,
 
         },
+
         {
-            name: "Shifting_Point",
-            label: "Shifting Point",
+            name: "Quantity",
+            label: "Lot",
             type: "text3",
             hiding: false,
             label_size: 12,
-            showWhen: (value) => value.Measurment_Type == "Shifting/FourLeg" && (value.Strategy == 'ShortShifting' || value.Strategy == 'LongShifting'),
             col_size: 4,
             disable: false,
         },
+
+        {
+            name: "Heading",
+            label: "Time Duration",
+            type: "heading",
+            hiding: false,
+            label_size: 12,
+            col_size: 12,
+            disable: false,
+        }, 
         {
             name: "ExitDay",
             label: "Exit Day",
@@ -593,24 +641,13 @@ const AddClient = () => {
                 { label: "J", value: "J" },
 
             ],
-
             showWhen: (value) => value.Strategy == "LongFourLegStretegy" || value.Strategy == "ShortFourLegStretegy",
-
             hiding: false,
             label_size: 12,
             col_size: 4,
             disable: false,
         },
-        {
-            name: "TStype",
-            label: "Measurment Type",
-            type: "cp",
-            hiding: false,
-            label_size: 12,
-            showWhen: (value) => (value.Measurment_Type == "Shifting/FourLeg" && (value.Strategy == 'ShortFourLegStretegy' || value.Strategy == 'LongFourLegStretegy')),
-            col_size: 4,
-            disable: false,
-        },
+       
         {
             name: "CEDepthLower",
             label: "CE Main Lower",

@@ -771,7 +771,11 @@ const AddClient = () => {
 
   return (
     <>
+   
+
+      
       <AddForm
+    
         fields={fields.filter(
           (field) => !field.showWhen || field.showWhen(formik.values)
         )}
@@ -781,6 +785,7 @@ const AddClient = () => {
         formik={formik}
         btn_name1_route={"/admin/allscript"}
       />
+     
     </>
   );
 };
