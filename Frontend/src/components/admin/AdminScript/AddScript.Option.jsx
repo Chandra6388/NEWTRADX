@@ -77,7 +77,7 @@ const AddClient = () => {
             const maxTime = "15:29:59";
             const minTime = "09:15:00";
             if (!values.Strategy) {
-                errors.Strategy = "Please Select a Strategy Type.";
+                errors.Strategy = "Please Select a Strategy Type oggg.";
             }
             if (!values.Measurment_Type) {
                 errors.Measurment_Type = "Please select Option type.";
