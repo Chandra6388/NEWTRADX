@@ -211,10 +211,10 @@ const AddClient = () => {
         values.Strategy !== 'Fixed Price' &&
         Number(values.LowerRange) >= Number(values.HigherRange) &&
         (Number(values.LowerRange) > 0 || Number(values.HigherRange) > 0)
-    ) {
+      ) {
         return SweentAlertFun("Higher Price should be greater than Lower Range");
-    }
-    
+      }
+
 
       if (
         values.Strategy === 'Fixed Price' &&
@@ -254,7 +254,7 @@ const AddClient = () => {
 
       if (values.EntryTime >= values.ExitTime) {
         return SweentAlertFun("Exit Time should be greater than Entry Time")
-      } 
+      }
       await AddAdminScript(req)
         .then((response) => {
           if (response.Status) {
@@ -294,7 +294,7 @@ const AddClient = () => {
     formik.setFieldValue("EntryRange", 0)
     formik.setFieldValue("Instrument", "FUTIDX")
     formik.setFieldValue("HoldExit", "Hold")
-    formik.setFieldValue("TStype", "Point") 
+    formik.setFieldValue("TStype", "Point")
   }, [])
 
 
@@ -319,6 +319,7 @@ const AddClient = () => {
       type: "heading",
       hiding: false,
       label_size: 12,
+      headingtype: 1,
       col_size: 12,
       disable: false,
     },
@@ -332,6 +333,7 @@ const AddClient = () => {
       })),
       hiding: false,
       label_size: 12,
+      headingtype: 1,
       col_size: formik.values.Exchange == 'NFO' && (formik.values.Instrument === "FUTSTK" || formik.values.Instrument === "FUTIDX") ? 3 : formik.values.Exchange == 'NFO' && (formik.values.Instrument === "OPTIDX" || formik.values.Instrument === "OPTSTK") ? 4 : formik.values.Exchange == 'NSE' && formik.values.Instrument == 'FUTIDX' ? 6 : 6,
       disable: false,
     },
@@ -362,6 +364,7 @@ const AddClient = () => {
       showWhen: (values) => values.Exchange == "NFO" || values.Exchange == "CDS" || values.Exchange == "MCX",
       hiding: false,
       label_size: 12,
+      headingtype: 1,
       col_size: formik.values.Instrument === "FUTSTK" || formik.values.Instrument === "FUTIDX" ? 3 : formik.values.Instrument === "OPTIDX" || formik.values.Instrument === "OPTSTK" ? 4 : 3,
       disable: false,
     },
@@ -375,6 +378,7 @@ const AddClient = () => {
       })),
       showWhen: (values) => values.Exchange === "NFO" || values.Exchange === "NSE" || values.Exchange === "CDS" || values.Exchange === "MCX",
       label_size: 12,
+      headingtype: 1,
       hiding: false,
       col_size: formik.values.Exchange == "NSE" ? 6 : formik.values.Instrument === "OPTIDX" || formik.values.Instrument === "OPTSTK" ? 4 : 3,
       disable: false,
@@ -391,6 +395,7 @@ const AddClient = () => {
       label_size: 12,
       hiding: false,
       col_size: 4,
+      headingtype: 1,
       disable: false,
     },
     {
@@ -403,6 +408,7 @@ const AddClient = () => {
       })),
       showWhen: (values) => values.Instrument == "OPTIDX" || values.Instrument == "OPTSTK",
       label_size: 12,
+      headingtype: 1,
       col_size: 4,
       hiding: false,
       disable: false,
@@ -417,6 +423,7 @@ const AddClient = () => {
       })),
       showWhen: (values) => values.Exchange === "NFO" || values.Exchange === "CDS" || values.Exchange === "MCX",
       label_size: 12,
+      headingtype: 1,
       hiding: false,
       col_size: formik.values.Instrument === "FUTSTK" || formik.values.Instrument === "FUTIDX" ? 3 : 4,
       disable: false,
@@ -427,6 +434,7 @@ const AddClient = () => {
       type: "heading",
       hiding: false,
       label_size: 12,
+      headingtype: 2,
       col_size: 12,
       disable: false,
     },
@@ -439,6 +447,7 @@ const AddClient = () => {
         { label: "SELL", value: "SELL" },
       ],
       label_size: 12,
+      headingtype: 2,
       hiding: false,
       col_size: formik.values.Strategy == 'Fixed Price' ? 3 : 4,
       disable: false,
@@ -449,6 +458,7 @@ const AddClient = () => {
       type: "text3",
       col_size: formik.values.Strategy == 'Fixed Price' ? 3 : 4,
       disable: false,
+      headingtype: 2,
       hiding: false,
     },
     {
@@ -456,6 +466,7 @@ const AddClient = () => {
       label: formik.values.Strategy == 'Fixed Price' ? "Higher Price" : "First Trade Higher Range",
       type: "text3",
       label_size: 12,
+      headingtype: 2,
       col_size: formik.values.Strategy == 'Fixed Price' ? 3 : 4,
       disable: false,
       hiding: false,
@@ -479,6 +490,7 @@ const AddClient = () => {
       showWhen: (values) => values.Strategy == "Fixed Price",
       label_size: 12,
       col_size: 3,
+      headingtype: 2,
       disable: false,
       hiding: false,
     },
@@ -489,6 +501,7 @@ const AddClient = () => {
       hiding: false,
       label_size: 12,
       col_size: 12,
+      headingtype: 3,
       disable: false,
     },
     {
@@ -497,6 +510,7 @@ const AddClient = () => {
       type: "text3",
       label_size: 12,
       col_size: 6,
+      headingtype: 3,
       disable: false,
       hiding: false,
     },
@@ -506,6 +520,7 @@ const AddClient = () => {
       type: "text3",
       label_size: 12,
       col_size: 6,
+      headingtype: 3,
       disable: false,
       hiding: false,
     },
@@ -515,6 +530,7 @@ const AddClient = () => {
       type: "heading",
       hiding: false,
       label_size: 12,
+      headingtype: 4,
       col_size: 12,
       disable: false,
     },
@@ -524,6 +540,7 @@ const AddClient = () => {
       type: "text3",
       label_size: 12,
       col_size: 6,
+      headingtype: 4,
       showWhen: (values) => values.Strategy != "Fixed Price",
       disable: false,
       hiding: false,
@@ -534,6 +551,7 @@ const AddClient = () => {
       type: "text3",
       label_size: 12,
       col_size: 6,
+      headingtype: 4,
       showWhen: (values) => values.Strategy != "Fixed Price",
       disable: false,
       hiding: false,
@@ -548,6 +566,7 @@ const AddClient = () => {
       ],
       showWhen: (values) => values.Strategy != "Fixed Price",
       label_size: 12,
+      headingtype: 4,
       col_size: 4,
       hiding: false,
       disable: false,
@@ -563,6 +582,7 @@ const AddClient = () => {
       showWhen: (values) => (values.Strategy == "Multi Directional" || values.Strategy == "One Directional"),
       label_size: 12,
       col_size: 4,
+      headingtype: 4,
       disable: false,
       hiding: false,
     },
@@ -572,6 +592,7 @@ const AddClient = () => {
       type: "text3",
       label_size: 12,
       col_size: formik.values.Strategy == "Fixed Price" ? 4 : 4,
+      headingtype: 4,
       hiding: false,
       disable: false,
     },
@@ -582,6 +603,7 @@ const AddClient = () => {
       hiding: false,
       label_size: 12,
       col_size: 12,
+      headingtype: 5,
       disable: false,
     },
     {
@@ -594,6 +616,7 @@ const AddClient = () => {
       ],
       label_size: 12,
       col_size: 4,
+      headingtype: 5,
       disable: false,
       hiding: false,
     },
@@ -603,6 +626,7 @@ const AddClient = () => {
       type: "timepiker",
       label_size: 12,
       col_size: 4,
+      headingtype: 5,
       disable: false,
       hiding: false,
     },
@@ -612,19 +636,11 @@ const AddClient = () => {
       type: "timepiker",
       label_size: 12,
       col_size: 4,
+      headingtype: 5,
       disable: false,
       hiding: false,
     },
-    {
-      name: "TType",
-      label: "Type",
-      type: "trt",
-      showWhen: (values) => (values.Strategy === 'Multi Directional' || values.Strategy === 'One Directional') && (values.Instrument === "FUTIDX" || values.Instrument === "FUTSTK") || values.Strategy != 'Fixed Price',
-      label_size: 12,
-      hiding: false,
-      col_size: 6,
-      disable: false,
-    },
+
   ];
 
   const getSymbol = async () => {
@@ -697,7 +713,7 @@ const AddClient = () => {
 
       })
   }
-  
+
   useEffect(() => {
     get_Exchange()
   }, [])
@@ -771,11 +787,11 @@ const AddClient = () => {
 
   return (
     <>
-   
 
-      
+
+
       <AddForm
-    
+
         fields={fields.filter(
           (field) => !field.showWhen || field.showWhen(formik.values)
         )}
@@ -785,7 +801,7 @@ const AddClient = () => {
         formik={formik}
         btn_name1_route={"/admin/allscript"}
       />
-     
+
     </>
   );
 };
