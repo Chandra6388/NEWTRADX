@@ -553,6 +553,17 @@ const AddClient = () => {
         },
         {
             name: "Heading",
+            label: "Risk_Management",
+            type: "heading",
+            hiding: false,
+            label_size: 12,
+            data: RiskManagementArr.filter((item) => !item.showWhen || item.showWhen(formik.values)),
+            headingtype: 4,
+            col_size: 12,
+            disable: false,
+        },
+        {
+            name: "Heading",
             label: "Exit_Rule",
             type: "heading",
             hiding: false,
@@ -563,17 +574,7 @@ const AddClient = () => {
             col_size: 12,
             disable: false,
         },
-        {
-            name: "Heading",
-            label: "Risk_Management",
-            type: "heading",
-            hiding: false,
-            label_size: 12,
-            data: RiskManagementArr.filter((item) => !item.showWhen || item.showWhen(formik.values)),
-            headingtype: 4,
-            col_size: 12,
-            disable: false,
-        },
+        
         {
             name: "Heading",
             label: "Time_Duration",
@@ -696,8 +697,6 @@ const AddClient = () => {
                 console.log("Error in finding the time frame", err)
             })
     }
-
-
 
     const GetPatternName = async () => {
         await Get_Pattern_Name()

@@ -629,17 +629,6 @@ const AddClient = () => {
     },
     {
       name: "Heading",
-      label: "Exit_Rule",
-      type: "heading",
-      hiding: false,
-      label_size: 12,
-      col_size: 12,
-      headingtype: 3,
-      data: ExitRuleArr.filter((item) => !item.showWhen || item.showWhen(formik.values)),
-      disable: false,
-    },
-    {
-      name: "Heading",
       label: "Risk_Management",
       type: "heading",
       hiding: false,
@@ -649,6 +638,18 @@ const AddClient = () => {
       data: RiskManagementArr.filter((item) => !item.showWhen || item.showWhen(formik.values)),
       disable: false,
     },
+    {
+      name: "Heading",
+      label: "Exit_Rule",
+      type: "heading",
+      hiding: false,
+      label_size: 12,
+      col_size: 12,
+      headingtype: 3,
+      data: ExitRuleArr.filter((item) => !item.showWhen || item.showWhen(formik.values)),
+      disable: false,
+    },
+    
     {
       name: "Heading",
       label: "Time_Duration",

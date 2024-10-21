@@ -342,6 +342,40 @@ const DynamicForm = ({
                                             </div>
                                           </div>
                                         </div>
+                                      ) : item.type === "number" ? (
+                                        <>
+                                          <div className={`col-lg-${item.col_size}`}>
+                                            <div className="row d-flex">
+                                              <div className="col-lg-12 ">
+                                                <div className="form-group input-block mb-3">
+                                                  <label htmlFor={item.name}>
+                                                    {item.label}
+                                                  </label>
+                                                  <span className="text-danger">*</span>
+
+                                                  <input
+                                                    type="number"
+                                                    name={item.name}
+                                                    aria-describedby="basic-addon1"
+                                                    className="form-control"
+                                                    id={item.name}
+                                                    placeholder={`Enter ${item.label}`}
+                                                    {...formik.getFieldProps(item.name)}
+                                                  />
+
+
+
+                                                  {formik.touched[item.name] &&
+                                                    formik.errors[item.name] ? (
+                                                    <div style={{ color: "red" }}>
+                                                      {formik.errors[item.name]}
+                                                    </div>
+                                                  ) : null}
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </>
                                       ) : item.type === "select" ? (
                                         <div className={`col-lg-${item.col_size}`}>
                                           <div className="input-block row mb-3">
@@ -396,43 +430,6 @@ const DynamicForm = ({
                                             </div>
                                           </div>
                                         </div>
-                                      ) : item.type === "text3" ? (
-                                        <>
-                                          <div className={`col-lg-${item.col_size}`}>
-                                            <div className="row d-flex">
-                                              <div className="col-lg-12">
-                                                <div className="form-group input-block mb-3">
-                                                  <label htmlFor={item.name}>
-                                                    {item.label}
-                                                  </label>
-                                                  <span className="text-danger">*</span>
-                                                  <input
-                                                    type="text"
-                                                    name={item.name}
-                                                    readOnly={item.disable}
-                                                    aria-describedby="basic-addon1"
-                                                    className="form-control"
-                                                    id={item.name}
-                                                    placeholder={`Enter ${item.label}`}
-                                                    {...formik.getFieldProps(item.name)}
-                                                    onChange={(e) => {
-                                                      let value = e.target.value;
-                                                      if (/^\d*\.?\d*$/.test(value) && value.length <= 10) {
-                                                        formik.setFieldValue(item.name, value);
-                                                      }
-                                                    }}
-                                                  />
-                                                  {formik.touched[item.name] && formik.errors[item.name] ? (
-                                                    <div style={{ color: "red" }}>
-                                                      {formik.errors[item.name]}
-                                                    </div>
-                                                  ) : null}
-                                                </div>
-                                              </div>
-                                            </div>
-                                          </div>
-
-                                        </>
                                       ) : item.type === "select1" ? (
                                         <>
                                           <div className={` col-lg-${item.col_size}`}>
@@ -475,6 +472,84 @@ const DynamicForm = ({
                                               </div>
                                             </div>
                                           </div>
+                                        </>
+                                      ) : item.type === "text4" ? (
+                                        <>
+                                          <div className={`col-lg-${item.col_size}`}>
+                                            <div className="row d-flex">
+                                              <div className="col-lg-12">
+                                                <div className="form-group input-block mb-3">
+                                                  <label htmlFor={item.name}>
+                                                    {item.label}
+                                                  </label>
+                                                  <span className="text-danger">*</span>
+                                                  <input
+                                                    type="number"
+                                                    name={item.name}
+                                                    readOnly={item.disable}
+                                                    aria-describedby="basic-addon1"
+                                                    className="form-control"
+                                                    id={item.name}
+                                                    placeholder={`Enter ${item.label}`}
+                                                    {...formik.getFieldProps(item.name)}
+                                                    min={1}
+                                                    step="any"
+                                                    onChange={(e) => {
+                                                      let value = e.target.value;
+                                                      value = value.replace(/^0+(?!\.)/, "");
+                                                      if (value !== "") {
+                                                        value = Math.min(Math.max(parseFloat(value), 1), 100);
+                                                      }
+                                                      formik.setFieldValue(item.name, value);
+                                                    }}
+                                                  />
+                                                  {formik.touched[item.name] && formik.errors[item.name] ? (
+                                                    <div style={{ color: "red" }}>
+                                                      {formik.errors[item.name]}
+                                                    </div>
+                                                  ) : null}
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+
+                                        </>
+                                      ) : item.type === "text3" ? (
+                                        <>
+                                          <div className={`col-lg-${item.col_size}`}>
+                                            <div className="row d-flex">
+                                              <div className="col-lg-12">
+                                                <div className="form-group input-block mb-3">
+                                                  <label htmlFor={item.name}>
+                                                    {item.label}
+                                                  </label>
+                                                  <span className="text-danger">*</span>
+                                                  <input
+                                                    type="text"
+                                                    name={item.name}
+                                                    readOnly={item.disable}
+                                                    aria-describedby="basic-addon1"
+                                                    className="form-control"
+                                                    id={item.name}
+                                                    placeholder={`Enter ${item.label}`}
+                                                    {...formik.getFieldProps(item.name)}
+                                                    onChange={(e) => {
+                                                      let value = e.target.value;
+                                                      if (/^\d*\.?\d*$/.test(value) && value.length <= 10) {
+                                                        formik.setFieldValue(item.name, value);
+                                                      }
+                                                    }}
+                                                  />
+                                                  {formik.touched[item.name] && formik.errors[item.name] ? (
+                                                    <div style={{ color: "red" }}>
+                                                      {formik.errors[item.name]}
+                                                    </div>
+                                                  ) : null}
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+
                                         </>
                                       ) : item.type === "heading" ? (
                                         <div className={`col-lg-${item.col_size}`}>
