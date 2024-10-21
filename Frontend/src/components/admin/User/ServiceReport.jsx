@@ -18,10 +18,8 @@ const Userlog = () => {
         loading: true,
         data: []
     })
-
-
+    
     const [selectStrategyType, setStrategyType] = useState('')
-
     const getAllServiceGiven = async () => {
         if (selectStrategyType == '') {
             return ""

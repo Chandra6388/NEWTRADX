@@ -7,7 +7,6 @@ import { Get_Symbol, Get_StrikePrice, GET_EXPIRY_DATE, AddAdminScript, GetExchan
 
 
 const AddClient = () => {
-
   const navigate = useNavigate()
   const location = useLocation()
   const [getAllExchange, setAllExchange] = useState([])
