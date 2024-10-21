@@ -76,7 +76,6 @@ const AddClient = () => {
         errors.Strategy = "Please Select Strategy Type.";
       }
 
-      console.log(values.Strategy)
       if (!values.Exchange) {
         errors.Exchange = "Please Select Exchange Type.";
       }
@@ -148,7 +147,7 @@ const AddClient = () => {
       if (!values.Slvalue) {
         errors.Slvalue = values.Strategy == "Fixed Price" ? "Please Enter Stop Loss Price." : "Please Select A Stop Loss Value.";
       }
-      console.log(errors)
+      // console.log(errors)
 
       return errors;
     },
@@ -205,8 +204,6 @@ const AddClient = () => {
             : "First Trade Higher Range should be greater than First Trade Lower Range"
         );
       }
-
-
       if (
         values.Strategy !== 'Fixed Price' &&
         Number(values.LowerRange) >= Number(values.HigherRange) &&
@@ -214,8 +211,6 @@ const AddClient = () => {
       ) {
         return SweentAlertFun("Higher Price should be greater than Lower Range");
       }
-
-
       if (
         values.Strategy === 'Fixed Price' &&
         values.TType === 'BUY' &&
@@ -234,8 +229,6 @@ const AddClient = () => {
 
         return SweentAlertFun(alertMessage);
       }
-
-
       if (
         values.Strategy === 'Fixed Price' &&
         values.TType === 'SELL' &&
@@ -286,7 +279,7 @@ const AddClient = () => {
   });
 
   useEffect(() => {
-    formik.setFieldValue('Strategy', "Multi Directional")
+    formik.setFieldValue('Strategy', "Fixed Price")
     formik.setFieldValue('Exchange', "NFO")
     formik.setFieldValue("TType", "BUY")
     formik.setFieldValue("ExitDay", "Intraday")
@@ -297,32 +290,7 @@ const AddClient = () => {
     formik.setFieldValue("TStype", "Point")
   }, [])
 
-
-  useEffect(() => {
-    formik.setFieldValue('Strategy', "Fixed Price")
-  }, [])
-
-  const fields = [
-    {
-      name: "Strategy",
-      label: "Scalping Type",
-      type: "radio2",
-      title: [{ title: "Fixed Price", value: "Fixed Price" }, { title: "One Directional", value: "One Directional" }, { title: "Multi Directional", value: "Multi Directional" }],
-      hiding: false,
-      label_size: 12,
-      col_size: 12,
-      disable: false,
-    },
-    {
-      name: "Heading",
-      label: "Symbol Selection",
-      type: "heading",
-      hiding: false,
-      label_size: 12,
-      headingtype: 1,
-      col_size: 12,
-      disable: false,
-    },
+  const SymbolSelectionArr = [
     {
       name: "Exchange",
       label: "Exchange",
@@ -416,7 +384,7 @@ const AddClient = () => {
     {
       name: "expirydata1",
       label: "Expiry Date",
-      type: "select1",
+      type: "select",
       options: getExpiryDate && getExpiryDate.data.map((item) => ({
         label: item,
         value: item
@@ -428,16 +396,10 @@ const AddClient = () => {
       col_size: formik.values.Instrument === "FUTSTK" || formik.values.Instrument === "FUTIDX" ? 3 : 4,
       disable: false,
     },
-    {
-      name: "Heading",
-      label: "Entry Rule",
-      type: "heading",
-      hiding: false,
-      label_size: 12,
-      headingtype: 2,
-      col_size: 12,
-      disable: false,
-    },
+
+  ]
+
+  const EntryRuleArr = [
     {
       name: "TType",
       label: "Transaction Type",
@@ -494,16 +456,10 @@ const AddClient = () => {
       disable: false,
       hiding: false,
     },
-    {
-      name: "Heading",
-      label: "Exit Rule",
-      type: "heading",
-      hiding: false,
-      label_size: 12,
-      col_size: 12,
-      headingtype: 3,
-      disable: false,
-    },
+
+  ]
+
+  const ExitRuleArr = [
     {
       name: "Targetvalue",
       label: formik.values.Strategy == "Fixed Price" ? "Target Price" : formik.values.Strategy == "One Directional" ? "Fixed Target" : "Fixed Target",
@@ -524,16 +480,10 @@ const AddClient = () => {
       disable: false,
       hiding: false,
     },
-    {
-      name: "Heading",
-      label: "Risk Management",
-      type: "heading",
-      hiding: false,
-      label_size: 12,
-      headingtype: 4,
-      col_size: 12,
-      disable: false,
-    },
+
+  ]
+
+  const RiskManagementArr = [
     {
       name: "LowerRange",
       label: "Lower Range ",
@@ -596,16 +546,10 @@ const AddClient = () => {
       hiding: false,
       disable: false,
     },
-    {
-      name: "Heading",
-      label: "Time Duration",
-      type: "heading",
-      hiding: false,
-      label_size: 12,
-      col_size: 12,
-      headingtype: 5,
-      disable: false,
-    },
+
+  ]
+
+  const TimeDurationArr = [
     {
       name: "ExitDay",
       label: "Exit Day",
@@ -639,9 +583,85 @@ const AddClient = () => {
       headingtype: 5,
       disable: false,
       hiding: false,
-    },
+    }
+  ]
 
+
+  const filteredSymbolSelectionArr = SymbolSelectionArr.filter((item) => {
+    if (item.showWhen) {
+      return item.showWhen(formik.values);
+    }
+    return true;
+  });
+
+  const fields = [
+    {
+      name: "Strategy",
+      label: "Scalping Type",
+      type: "radio2",
+      title: [{ title: "Fixed Price", value: "Fixed Price" }, { title: "One Directional", value: "One Directional" }, { title: "Multi Directional", value: "Multi Directional" }],
+      hiding: false,
+      label_size: 12,
+      col_size: 12,
+      disable: false,
+    },
+    {
+      name: "Heading",
+      label: "Symbol_Selection",
+      type: "heading",
+      hiding: false,
+      label_size: 12,
+      headingtype: 1,
+      col_size: 12,
+      data: SymbolSelectionArr.filter((item) => !item.showWhen || item.showWhen(formik.values)),
+      disable: false,
+    },
+    {
+      name: "Heading",
+      label: "Entry_Rule",
+      type: "heading",
+      hiding: false,
+      label_size: 12,
+      headingtype: 2,
+      col_size: 12,
+      data: EntryRuleArr.filter((item) => !item.showWhen || item.showWhen(formik.values)),
+      disable: false,
+    },
+    {
+      name: "Heading",
+      label: "Exit_Rule",
+      type: "heading",
+      hiding: false,
+      label_size: 12,
+      col_size: 12,
+      headingtype: 3,
+      data: ExitRuleArr.filter((item) => !item.showWhen || item.showWhen(formik.values)),
+      disable: false,
+    },
+    {
+      name: "Heading",
+      label: "Risk_Management",
+      type: "heading",
+      hiding: false,
+      label_size: 12,
+      headingtype: 4,
+      col_size: 12,
+      data: RiskManagementArr.filter((item) => !item.showWhen || item.showWhen(formik.values)),
+      disable: false,
+    },
+    {
+      name: "Heading",
+      label: "Time_Duration",
+      type: "heading",
+      hiding: false,
+      label_size: 12,
+      col_size: 12,
+      headingtype: 5,
+      data: TimeDurationArr.filter((item) => !item.showWhen || item.showWhen(formik.values)),
+      disable: false,
+    },
   ];
+
 
   const getSymbol = async () => {
     if (formik.values.Exchange) {
@@ -787,11 +807,7 @@ const AddClient = () => {
 
   return (
     <>
-
-
-
       <AddForm
-
         fields={fields.filter(
           (field) => !field.showWhen || field.showWhen(formik.values)
         )}
@@ -801,7 +817,6 @@ const AddClient = () => {
         formik={formik}
         btn_name1_route={"/admin/allscript"}
       />
-
     </>
   );
 };
