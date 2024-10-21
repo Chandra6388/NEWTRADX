@@ -462,7 +462,7 @@ const AddClient = () => {
   const ExitRuleArr = [
     {
       name: "Targetvalue",
-      label: formik.values.Strategy == "Fixed Price" ? "Target Price" : formik.values.Strategy == "One Directional" ? "Fixed Target" : "Fixed Target",
+      label: formik.values.Strategy == "Fixed Price" ? "Target Price" : formik.values.Strategy == "One Directional" ? "Fixed Target" : "Booking Point",
       type: "text3",
       label_size: 12,
       col_size: 6,

@@ -99,7 +99,7 @@ const DynamicForm = ({
                               style={{ borderBottom: '1px solid gray' }}
                             >
                               <div className="iq-header-title">
-                                <h4 className="card-title">Symbol Selection</h4>
+                                <h4 className="card-title" style={{color:'#000', fontWeight:'450'}}>Symbol Selection</h4>
                               </div>
                             </div>
 
@@ -273,7 +273,7 @@ const DynamicForm = ({
                                 style={{ borderBottom: '1px solid gray' }}
                               >
                                 <div className="iq-header-title">
-                                  <h4 className="card-title">Entry Rule</h4>
+                                  <h4 className="card-title" style={{color:'#000', fontWeight:'450'}}>Entry Rule</h4>
                                 </div>
                               </div>
                               <div className="iq-card-body row">
@@ -578,7 +578,7 @@ const DynamicForm = ({
                                   style={{ borderBottom: '1px solid gray' }}
                                 >
                                   <div className="iq-header-title">
-                                    <h4 className="card-title">Exit Rule</h4>
+                                    <h4 className="card-title" style={{color:'#000', fontWeight:'450'}}>Exit Rule</h4>
                                   </div>
                                 </div>
                                 <div className="iq-card-body row">
@@ -721,7 +721,7 @@ const DynamicForm = ({
                                     style={{ borderBottom: '1px solid gray' }}
                                   >
                                     <div className="iq-header-title">
-                                      <h4 className="card-title">Risk Management</h4>
+                                      <h4 className="card-title" style={{color:'#000', fontWeight:'450'}}>Risk Management</h4>
                                     </div>
                                   </div>
                                   <div className="iq-card-body row">
@@ -821,7 +821,6 @@ const DynamicForm = ({
                                                         <option
                                                           key={option.value}
                                                           value={option.value}
-
                                                         >
                                                           {option.label}
                                                         </option>
@@ -864,7 +863,7 @@ const DynamicForm = ({
                                       style={{ borderBottom: '1px solid gray' }}
                                     >
                                       <div className="iq-header-title">
-                                        <h4 className="card-title">Time Duration</h4>
+                                        <h4 className="card-title" style={{color:'#000', fontWeight:'450'}}>Time Duration</h4>
                                       </div>
                                     </div>
                                     <div className="iq-card-body row">

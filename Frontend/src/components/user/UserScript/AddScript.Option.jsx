@@ -256,7 +256,6 @@ const AddClient = () => {
                 stretegytag: values.Measurment_Type
             }
             if (values.Striketype == "Depth_of_Strike" && (Number(values.DepthofStrike) < 0 || Number(values.DepthofStrike) > 10)) {
-
                 return SweentAlertFun("Enter Depth of Strike's Range between 1 - 10")
             }
             if (values.EntryTime >= values.ExitTime) {
@@ -264,35 +263,27 @@ const AddClient = () => {
             }
 
             if ((values.Striketype == "Premium_Range" && values.Measurment_Type != "Shifting_FourLeg") && (Number(values.Lower_Range) >= Number(values.Higher_Range))) {
-
-
                 return SweentAlertFun("Higher Range should be Greater than Lower Range")
             }
 
             else if (values.Strategy == 'ShortFourLegStretegy' || values.Strategy == 'LongFourLegStretegy') {
                 if (req.CEDepthHigher <= req.CEDepthLower) {
-
                     return SweentAlertFun("Enter CE Main Higher Greater Than CE Main Lower")
                 }
                 else if (req.PEDepthLower >= req.PEDepthHigher) {
-
                     return SweentAlertFun("Enter PE Main Higher Greater Than PE Main Lower")
                 }
                 else if (req.CEDeepLower >= req.CEDeepHigher) {
-
                     return SweentAlertFun("Enter CE Hedge Higher Greater Than CE Hedge Lower")
                 }
                 else if (req.PEDeepLower >= req.PEDeepHigher) {
-
                     return SweentAlertFun("Enter PE Hedge Higher Greater Than PE Hedge Lower")
                 }
 
                 else if ((req.CEDepthLower <= req.CEDeepLower) || (req.CEDepthLower <= req.CEDeepHigher)) {
-
                     return SweentAlertFun("Enter CE Hedge Lower & CE Hedge Higher Smaller than CE Main Lower")
                 }
                 else if (req.PEDepthLower <= req.PEDeepLower || req.PEDepthLower <= req.PEDeepHigher) {
-
                     return SweentAlertFun("Enter PE Hedge Lower & PE Hedge Higher Smaller than PE Main Lower")
                 }
             }
@@ -396,14 +387,11 @@ const AddClient = () => {
 
                         formik.values.Measurment_Type == "Ladder_Coverd" ?
                             [{ title: "Bull Call Ladder", value: "BullCallLadder" }, { title: "Bull Put Ladder", value: "BullPutLadder" }, { title: "Covered Call", value: "CoveredCall" }, { title: "Covered Put", value: "CoveredPut" }] :
-
                             formik.values.Measurment_Type == "Collar_Ratio" ?
                                 [{ title: "Long Collar", value: "LongCollar" }, { title: "Short Collar", value: "ShortCollar" }, { title: "Ratio Call Spread", value: "RatioCallSpread" }, { title: "Ratio Put Spread", value: "RatioPutSpread" }] :
-
                                 formik.values.Measurment_Type == "Shifting_FourLeg" ?
                                     [{ title: "Short Shifting", value: "ShortShifting" }, { title: "Long Shifting", value: "LongShifting" }, { title: "ShortFourLegStrategy", value: "ShortFourLegStretegy" }, { title: "LongFourLegStrategy", value: "LongFourLegStretegy" }] :
                                     ""
-
             ,
             label_size: 12,
             col_size: 8,
