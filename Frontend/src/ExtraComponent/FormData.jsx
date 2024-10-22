@@ -91,7 +91,7 @@ const DynamicForm = ({
                 {fields.map((field, index) => (
                   <React.Fragment key={index}>
                     {field?.headingtype == 1 ?
-                      <div className="iq-card"
+                      <div className="iq-card mt-4"
                         style={{ boxShadow: "rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px", }}>
                         {field.label === "Symbol_Selection" && (
                           <>
