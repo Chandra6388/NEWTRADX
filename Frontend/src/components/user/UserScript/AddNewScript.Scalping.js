@@ -17,9 +17,9 @@ const AddClient = () => {
 
   const SweentAlertFun = (text) => {
     Swal.fire({
-      title: "Error",
+      title: "Warning !",
       text: text,
-      icon: "error",
+      icon: "warning",
       timer: 1500,
       timerProgressBar: true
     });
@@ -136,13 +136,13 @@ const AddClient = () => {
       }
       if (!values.ExitDay) {
         errors.ExitDay = "Please Select Exit Day.";
-      }  
+      }
       if (!values.EntryPrice && values.EntryPrice != 0) {
         errors.EntryPrice = values.Strategy == "Fixed Price" ? "Please Enter The Lowest Price." : "Please Enter The First Trade Lower Range";
       }
       if (!values.EntryRange && values.EntryRange != 0) {
         errors.EntryRange = values.Strategy == "Fixed Price" ? "Please Enter The Highest Price." : "Please Enter The First Trade Higher Range";
-      } 
+      }
 
       if (!values.Targetvalue) {
         errors.Targetvalue = values.Strategy == "Fixed Price" ? "Please Enter A Target Price." : "Please Enter A Target Value.";
@@ -161,8 +161,8 @@ const AddClient = () => {
       }
       if (!values.Slvalue) {
         errors.Slvalue = values.Strategy == "Fixed Price" ? "Please Enter Stop Loss Price." : "Please Select A Stop Loss Value.";
-      } 
-      return errors; 
+      }
+      return errors;
     },
 
     onSubmit: async (values) => {
@@ -212,22 +212,54 @@ const AddClient = () => {
           TradeExecution: values.Trade_Execution,
           stretegytag: values.Strategy
         }
-        
-        if ((Number(values.EntryPrice) >= Number(values.EntryRange) || Number(values.EntryRange) == 0 || Number(values.EntryPrice) == 0)) {
-          return SweentAlertFun("First Trade Higher Range should be greater than First Trade Lower Range")
+
+        if ((Number(values.EntryPrice) > 0 || Number(values.EntryRange) > 0) &&
+          (Number(values.EntryPrice) >= Number(values.EntryRange))) {
+          return SweentAlertFun(
+            values.Strategy === 'Fixed Price'
+              ? "Higher Price should be greater than Lower Price"
+              : "First Trade Higher Range should be greater than First Trade Lower Range"
+          );
         }
-
-        if (values.Strategy != 'Fixed Price' && (Number(values.LowerRange) >= Number(values.HigherRange) || Number(values.LowerRange) == 0 || Number(values.HigherRange) == 0)) {
-          return SweentAlertFun("Higher Price should be greater than Lower Range")
+        if (
+          values.Strategy !== 'Fixed Price' &&
+          Number(values.LowerRange) >= Number(values.HigherRange) &&
+          (Number(values.LowerRange) > 0 || Number(values.HigherRange) > 0)
+        ) {
+          return SweentAlertFun("Higher Price should be greater than Lower Range");
         }
+        if (
+          values.Strategy === 'Fixed Price' &&
+          values.TType === 'BUY' &&
+          (
+            Number(values.EntryPrice) >= Number(values.EntryRange) ||
+            Number(values.Targetvalue) <= Number(values.EntryRange) ||
+            Number(values.Slvalue) >= Number(values.EntryPrice)
+          )
+        ) {
+          const alertMessage =
+            Number(values.Targetvalue) <= Number(values.EntryRange)
+              ? "Target should be greater than Higher Price"
+              : Number(values.EntryRange) <= Number(values.EntryPrice)
+                ? "Higher Price should be greater than Lower Price"
+                : "Stoploss should be smaller than Lower Price";
 
-        if (values.Strategy == 'Fixed Price' && values.TType == 'BUY' && (Number(values.EntryPrice) >= Number(values.EntryRange) || Number(values.Targetvalue) <= Number(values.EntryRange) || Number(values.Slvalue) >= Number(values.EntryPrice))) {
-          return SweentAlertFun(Number(values.Targetvalue) <= Number(values.EntryRange) ? "Target should be Greater than Higher Price " : Number(values.EntryRange) <= Number(values.EntryPrice) ? "Higher Price should be Greater than Lower Price" : "Stoploss should be Smaller than Lower Price")
+          return SweentAlertFun(alertMessage);
         }
+        if (
+          values.Strategy === 'Fixed Price' &&
+          values.TType === 'SELL' &&
+          (
+            Number(values.Targetvalue) >= Number(values.EntryPrice) ||
+            Number(values.Slvalue) <= Number(values.EntryRange)
+          )
+        ) {
+          const alertMessage =
+            Number(values.Targetvalue) >= Number(values.EntryPrice)
+              ? "Target should be smaller than Lower Price"
+              : "Stoploss should be greater than Higher Price";
 
-
-        if (values.Strategy == 'Fixed Price' && values.TType == 'SELL' && (Number(values.Targetvalue) >= Number(values.EntryPrice) || values.Slvalue <= Number(values.EntryRange))) {
-          return SweentAlertFun(Number(values.Targetvalue) >= Number(values.EntryPrice) ? "Target should be Smaller than Lower Price" : "Stoploss should be Greater than Higher Price")
+          return SweentAlertFun(alertMessage);
         }
 
         if (values.EntryTime >= values.ExitTime) {
@@ -455,7 +487,7 @@ const AddClient = () => {
       disable: false,
       hiding: false,
     },
-    
+
     {
       name: "Slvalue",
       label: formik.values.Strategy == "Fixed Price" ? "Stoploss Price" : "Re-Entry Point",
@@ -505,7 +537,7 @@ const AddClient = () => {
       headingtype: 4,
       disable: false,
       hiding: false,
-    }, 
+    },
 
     {
       name: "TStype",
@@ -521,8 +553,8 @@ const AddClient = () => {
       col_size: 4,
       hiding: false,
       disable: false,
-    }, 
- 
+    },
+
     {
       name: "Quantity",
       label: formik.values.Exchange == "NFO" ? "Lot" : "Quantity",
@@ -543,11 +575,11 @@ const AddClient = () => {
       disable: false,
       hiding: false,
     },
-    
+
   ]
 
   const TimeDurationArr = [
-   
+
     {
       name: "EntryTime",
       label: "Entry Time",

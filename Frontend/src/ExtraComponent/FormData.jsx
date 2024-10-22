@@ -1019,7 +1019,7 @@ const DynamicForm = ({
                                         style={{ borderBottom: '1px solid gray' }}
                                       >
                                         <div className="iq-header-title">
-                                          <h4 className="card-title" style={{ color: '#000', fontWeight: '450' }}>Time Duration</h4>
+                                          <h4 className="card-title" style={{ color: '#000', fontWeight: '450' }}>Other Parameters</h4>
                                         </div>
                                       </div>
                                       <div className="iq-card-body row">
