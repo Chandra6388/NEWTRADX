@@ -488,7 +488,7 @@ const AddClient = () => {
       label: "Lower Range ",
       type: "text3",
       label_size: 12,
-      col_size: 6,
+      col_size: 4,
       headingtype: 4,
       showWhen: (values) => values.Strategy != "Fixed Price",
       disable: false,
@@ -499,26 +499,11 @@ const AddClient = () => {
       label: "Higher Range",
       type: "text3",
       label_size: 12,
-      col_size: 6,
-      headingtype: 4,
-      showWhen: (values) => values.Strategy != "Fixed Price",
-      disable: false,
-      hiding: false,
-    },
-    {
-      name: "TStype",
-      label: "Measurement Type",
-      type: "select",
-      options: [
-        { label: "Percentage", value: "Percentage" },
-        { label: "Point", value: "Point" },
-      ],
-      showWhen: (values) => values.Strategy != "Fixed Price",
-      label_size: 12,
-      headingtype: 4,
       col_size: 4,
-      hiding: false,
+      headingtype: 4,
+      showWhen: (values) => values.Strategy != "Fixed Price",
       disable: false,
+      hiding: false,
     },
     {
       name: "HoldExit",
@@ -536,6 +521,21 @@ const AddClient = () => {
       hiding: false,
     },
     {
+      name: "TStype",
+      label: "Measurement Type",
+      type: "select",
+      options: [
+        { label: "Percentage", value: "Percentage" },
+        { label: "Point", value: "Point" },
+      ],
+      showWhen: (values) => values.Strategy != "Fixed Price",
+      label_size: 12,
+      headingtype: 4,
+      col_size: 4,
+      hiding: false,
+      disable: false,
+    }, 
+    {
       name: "Quantity",
       label: formik.values.Exchange == "NFO" ? "Lot" : "Quantity",
       type: "text3",
@@ -549,20 +549,7 @@ const AddClient = () => {
   ]
 
   const TimeDurationArr = [
-    {
-      name: "ExitDay",
-      label: "Exit Day",
-      type: "select",
-      options: [
-        { label: "Intraday", value: "Intraday" },
-        { label: "Delivery", value: "Delivery" },
-      ],
-      label_size: 12,
-      col_size: 4,
-      headingtype: 5,
-      disable: false,
-      hiding: false,
-    },
+   
     {
       name: "EntryTime",
       label: "Entry Time",
@@ -582,16 +569,24 @@ const AddClient = () => {
       headingtype: 5,
       disable: false,
       hiding: false,
+    },
+    {
+      name: "ExitDay",
+      label: "Exit Day",
+      type: "select",
+      options: [
+        { label: "Intraday", value: "Intraday" },
+        { label: "Delivery", value: "Delivery" },
+      ],
+      label_size: 12,
+      col_size: 4,
+      headingtype: 5,
+      disable: false,
+      hiding: false,
     }
+
   ]
 
-
-  const filteredSymbolSelectionArr = SymbolSelectionArr.filter((item) => {
-    if (item.showWhen) {
-      return item.showWhen(formik.values);
-    }
-    return true;
-  });
 
   const fields = [
     {
@@ -792,11 +787,9 @@ const AddClient = () => {
 
 
   useEffect(() => {
-    formik.setFieldValue('Group', "")
-    formik.setFieldValue('HoldExit', "")
+    formik.setFieldValue('Group', "") 
     formik.setFieldValue('HigherRange', 0)
     formik.setFieldValue('LowerRange', 0)
-    formik.setFieldValue('TStype', "")
     formik.setFieldValue('EntryRange', 0)
     formik.setFieldValue('EntryPrice', 0)
   }, [formik.values.Strategy])

@@ -347,7 +347,7 @@ const AddClient = () => {
             ],
             hiding: false,
             label_size: 12,
-            col_size: 6,
+            col_size: 4,
             headingtype: 1,
             disable: false,
         },
@@ -361,7 +361,7 @@ const AddClient = () => {
             ],
             hiding: false,
             label_size: 12,
-            col_size: 6,
+            col_size: 4,
             headingtype: 1,
             disable: false,
         },
@@ -654,20 +654,7 @@ const AddClient = () => {
     ]
 
     const TimeDurationArr = [
-        {
-            name: "ExitDay",
-            label: "Exit Day",
-            type: "select",
-            options: [
-                { label: "Intraday", value: "Intraday" },
-                { label: "Delivery", value: "Delivery" },
-            ],
-            hiding: false,
-            label_size: 12,
-            col_size: 4,
-            headingtype: 5,
-            disable: false,
-        },
+        
         {
             name: "EntryTime",
             label: "Entry Time",
@@ -687,6 +674,20 @@ const AddClient = () => {
             col_size: 4,
             headingtype: 5,
 
+            disable: false,
+        },
+        {
+            name: "ExitDay",
+            label: "Exit Day",
+            type: "select",
+            options: [
+                { label: "Intraday", value: "Intraday" },
+                { label: "Delivery", value: "Delivery" },
+            ],
+            hiding: false,
+            label_size: 12,
+            col_size: 4,
+            headingtype: 5,
             disable: false,
         },
 
