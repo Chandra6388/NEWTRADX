@@ -1,6 +1,5 @@
 import Checkbox from '@mui/material/Checkbox';
 
-// Client Activity Column
 export const ClientActivityPage =()=> [
     {
         name: "S.No",
