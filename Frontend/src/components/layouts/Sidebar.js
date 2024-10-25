@@ -5,15 +5,13 @@ import $ from 'jquery';
 const Sidebar = () => {
     const role = localStorage.getItem("Role");
     const [isActive, setIsActive] = useState(true);
-    const [activeItem, setActiveItem] = useState(''); // State to track active item
+    const [activeItem, setActiveItem] = useState(''); 
     const sidebarRef = useRef(null);
     const fevicon = localStorage.getItem("fevicon");
     const header_img1 = localStorage.getItem("header_img1");
     const header_img2 = localStorage.getItem("header_img2");
     const logo = localStorage.getItem("logo");
     const pannel_name = localStorage.getItem("pannel_name");
-
-
 
     const setImages = async () => {
         $(".header_img1").attr('src', header_img1);
@@ -32,22 +30,16 @@ const Sidebar = () => {
     }, []);
 
 
-
-
-
     const closeSidebarOnSmallScreen = () => {
         if (window.innerWidth <= 991) {
             document.body.classList.remove('sidebar-main');
         }
     };
 
-
-
-
     useEffect(() => {
         const sidebar = sidebarRef.current;
         const handleAnchorClick = (event) => {
-            closeSidebarOnSmallScreen(); // Remove classes on anchor click for small screens
+            closeSidebarOnSmallScreen(); 
         };
 
         const anchors = sidebar.querySelectorAll('a');
@@ -60,20 +52,8 @@ const Sidebar = () => {
                 anchor.removeEventListener('click', handleAnchorClick);
             });
         };
-        // if (isActive) {
-        //     document.body.classList.add('sidebar-main');
-        // } else {
-        //     document.body.classList.remove('sidebar-main');
-        // }
+       
     }, [isActive]);
-
-    // const handleClick = () => {
-    //     setIsActive(prevState => !prevState);
-    // };
-
-    // const handleSidebarClick = (event, item) => {
-    //     setActiveItem(item);
-    // };
 
     useEffect(() => {
         document.body.classList.toggle('sidebar-main', isActive);
@@ -217,13 +197,13 @@ const Sidebar = () => {
                                         </Link>
                                     </li>
 
-
                                     <li className={activeItem === 'userlogs' ? 'active' : ''} onClick={(e) => handleSidebarClick(e, 'userlogs')}>
                                         <Link to="/admin/userlogs" className="iq-waves-effect">
                                             <i className="la la-envelope-open" />
                                             <span>User Panel Log</span>
                                         </Link>
                                     </li>
+
                                     <li className={activeItem === 'servicereport' ? 'active' : ''} onClick={(e) => handleSidebarClick(e, 'servicereport')}>
                                         <Link to="/admin/servicerepor" className="iq-waves-effect">
                                             <i className="la la-cog" />
@@ -237,12 +217,14 @@ const Sidebar = () => {
                                             <span>Trade History</span>
                                         </Link>
                                     </li>
+
                                     <li className={activeItem === 'clientactivity' ? 'active' : ''} onClick={(e) => handleSidebarClick(e, 'clientactivity')}>
                                         <Link to="/admin/clientactivity" className="iq-waves-effect">
                                             <i className="las la-radiation-alt" />
                                             <span>Client Activity</span>
                                         </Link>
                                     </li>
+
                                     <li className={activeItem === 'clientreport' ? 'active' : ''} onClick={(e) => handleSidebarClick(e, 'clientreport')}>
                                         <Link to="/admin/clientreport" className="iq-waves-effect">
                                             <i className="la la-map-marker" />
@@ -250,20 +232,13 @@ const Sidebar = () => {
                                         </Link>
                                     </li>
 
-                                    {/* <li className={activeItem === 'transectionrequest' ? 'active' : ''} onClick={(e) => handleSidebarClick(e, 'transectionrequest')}>
-                                        <Link to="/admin/transectionrequest" className="iq-waves-effect">
-                                            <i className="la la-file-alt" />
-                                            <span>Transaction Requests</span>
-                                        </Link>
-                                    </li> */}
-
-
                                     <li className={activeItem === 'smtp' ? 'active' : ''} onClick={(e) => handleSidebarClick(e, 'smtp')}>
                                         <Link to="/admin/smtp" className="iq-waves-effect">
                                             <i className="la la-palette" />
                                             <span>SMTP Details</span>
                                         </Link>
                                     </li>
+
                                     <li className={activeItem === 'system' ? 'active' : ''} onClick={(e) => handleSidebarClick(e, 'system')}>
                                         <Link to="/admin/system" className="iq-waves-effect">
                                             <i className="la la-cog" />
