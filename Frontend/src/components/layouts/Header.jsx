@@ -10,7 +10,6 @@ import { IndianRupee, Eye } from 'lucide-react';
 import { LastPattern, DataStart, AutoLogin } from '../CommonAPI/Admin'
 import { GetUserBalence, GetBrokerData } from '../CommonAPI/User'
 
-
 const Header = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [showFunds, setShowFunds] = useState(false);
