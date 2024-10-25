@@ -44,8 +44,6 @@ const Header = () => {
     const [walletBalance, setWalletBalance] = useState('');
     const [setApiData, setSetApiData] = useState([]);
 
-
-    console.log("setApiData", setApiData[0]);
     useEffect(() => {
         GetBalence()
         fetchData();
@@ -157,7 +155,6 @@ const Header = () => {
         navigate("/");
     }
 
-
     useEffect(() => {
         const handleScroll = () => {
             if (window.scrollY >= 75) {
@@ -217,7 +214,6 @@ const Header = () => {
         };
     }, []);
 
-
     useEffect(() => {
         if (isActive) {
             document.body.classList.add('sidebar-main');
@@ -240,8 +236,6 @@ const Header = () => {
             }
         }
     };
-
-
 
     const handleAutoLoginbtn = async () => {
         await AutoLogin()
@@ -266,6 +260,7 @@ const Header = () => {
                 }
             })
     }
+
     const handleDataStart = async () => {
         await DataStart()
             .then((response) => {
@@ -290,6 +285,7 @@ const Header = () => {
             })
 
     }
+
     const handleLastPattern = async () => {
         await LastPattern()
             .then((response) => {
@@ -314,6 +310,7 @@ const Header = () => {
             })
 
     }
+
     const GetBalence = async () => {
         const req = { userName: Username }
         await GetUserBalence(req)
@@ -329,6 +326,7 @@ const Header = () => {
                 console.error("Error in GetUserBalence request", error);
             });
     }
+    
     function formatNumber(value) {
         if (value < 1000) {
             return value.toString();
@@ -360,23 +358,16 @@ const Header = () => {
         walletmodal(showFunds);
     };
 
-    // api_key: '',
-    // mobileno: '',
-    // APIPassword: '',
-    // BrokerName: '',
-    // DOB: '',
-    // Password: '',
-    // username: '',
-    // broker: '',
-
-
+      
     const shouldRenderSwitch =
         (getBrokerName && getBrokerName !== "Demo") &&
         (
             setApiData?.[0]?.DOB !== "" ||
             setApiData?.[0]?.Password !== "" ||
             setApiData?.[0]?.api_key !== "" ||
-            setApiData[0]?.username !== ""
+            setApiData[0]?.username !== "" || 
+            setApiData[0]?.APIPassword !== "" ||
+            setApiData[0]?.mobileno !== "" 
         );
 
     return (
