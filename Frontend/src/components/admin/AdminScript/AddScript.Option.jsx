@@ -692,6 +692,7 @@ const AddClient = () => {
         },
 
     ]
+    
     const fields = [
         {
             name: "Measurment_Type",

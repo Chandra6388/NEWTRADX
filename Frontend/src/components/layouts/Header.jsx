@@ -7,14 +7,13 @@ import axios from "axios";
 import { TradingStatus } from "../CommonAPI/User";
 import Swal from 'sweetalert2';
 import { IndianRupee, Eye } from 'lucide-react';
-import { LastPattern, DataStart, AutoLogin  } from '../CommonAPI/Admin'
-import { GetUserBalence } from '../CommonAPI/User'
+import { LastPattern, DataStart, AutoLogin } from '../CommonAPI/Admin'
+import { GetUserBalence, GetBrokerData } from '../CommonAPI/User'
 
 
 const Header = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [showFunds, setShowFunds] = useState(false);
-
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
     };
@@ -43,11 +42,33 @@ const Header = () => {
     const [getTradingStatus, setTradingStatus] = useState(false);
     const [getBrokerName, setBrokerName] = useState("");
     const [walletBalance, setWalletBalance] = useState('');
+    const [setApiData, setSetApiData] = useState([]);
 
-     
+
+    console.log("setApiData", setApiData[0]);  
     useEffect(() => {
         GetBalence()
+        fetchData();
+        setApiKeyData();
     }, [])
+
+
+    const setApiKeyData = async () => {
+        if (role == 'User') {
+            const requestData = { userName: Username };
+            await GetBrokerData(requestData)
+                .then((response) => {
+                    if (response.Status) {
+                        setSetApiData(response.BrokerDetail)
+                    }
+                    else {
+                        setSetApiData([])
+                    }
+                }).catch((error) => {
+                    console.error("Error in GetBrokerData request", error);
+                });
+        }
+    };
 
     const handleToggle = async (event) => {
         const newStatus = event.target.checked;
@@ -72,9 +93,7 @@ const Header = () => {
                 sid: "",
                 jwt_Token: "",
             }
-
             try {
-
                 const response = await axios.post(`${Config.base_url}ConnectBroker`, data,
                     {
                         headers: {
@@ -82,10 +101,7 @@ const Header = () => {
                             'Authorization': `Bearer ${token}`
                         }
                     });
-
-
-                if (response.data.Status) { // Assuming the status is in response.data.Status
-
+                if (response.data.Status) {
                     Swal.fire({
                         title: 'Success!',
                         text: 'Trading On successfully.',
@@ -98,7 +114,6 @@ const Header = () => {
                         }, 1000);
                     });
                 } else {
-
                     Swal.fire({
                         title: 'Success!',
                         text: 'Trading Off successfully.',
@@ -108,7 +123,6 @@ const Header = () => {
                     }).then(() => {
                         setTimeout(() => {
                             window.location.reload();
-
                         }, 1000);
                     });
                 }
@@ -121,8 +135,6 @@ const Header = () => {
                     confirmButtonText: 'OK',
                 });
             }
-
-
         }
     };
 
@@ -141,7 +153,6 @@ const Header = () => {
     };
 
     const logout = async () => {
-
         localStorage.removeItem("Role");
         navigate("/");
     }
@@ -208,8 +219,6 @@ const Header = () => {
 
 
     useEffect(() => {
-
-
         if (isActive) {
             document.body.classList.add('sidebar-main');
         } else {
@@ -219,12 +228,12 @@ const Header = () => {
 
     const fetchData = async () => {
         if (role == 'User') {
-
             const requestData = { userName: Username };
             const response = await TradingStatus(requestData);
 
             if (response) {
                 setBrokerName(response.Brokername)
+
                 if (response.Status) {
                     setTradingStatus(true)
                 }
@@ -232,9 +241,7 @@ const Header = () => {
         }
     };
 
-    useEffect(() => {
-        fetchData();
-    }, []);
+
 
     const handleAutoLoginbtn = async () => {
         await AutoLogin()
@@ -259,7 +266,6 @@ const Header = () => {
                 }
             })
     }
-
     const handleDataStart = async () => {
         await DataStart()
             .then((response) => {
@@ -308,27 +314,21 @@ const Header = () => {
             })
 
     }
-
     const GetBalence = async () => {
-      const req = {userName: Username}
-      await GetUserBalence(req)
-        .then((response) => {
-            if (response.Status) {
-                setWalletBalance(response.Balance)
-            }
-            else {
-                setWalletBalance('')
-            }
-        })
-        .catch((error) => {
-            console.error("Error in GetUserBalence request", error);
-        });   
+        const req = { userName: Username }
+        await GetUserBalence(req)
+            .then((response) => {
+                if (response.Status) {
+                    setWalletBalance(response.Balance)
+                }
+                else {
+                    setWalletBalance('')
+                }
+            })
+            .catch((error) => {
+                console.error("Error in GetUserBalence request", error);
+            });
     }
-
-
-
-
-
     function formatNumber(value) {
         if (value < 1000) {
             return value.toString();
@@ -351,16 +351,14 @@ const Header = () => {
         }
     }
 
-    const walletmodal = () => { 
-            navigate('/user/all/transection') 
+    const walletmodal = () => {
+        navigate('/user/all/transection')
     };
 
     const toggleFundsVisibility = () => {
         setShowFunds(!showFunds);
         walletmodal(showFunds);
-
     };
-
     return (
         <>
             <div className={`iq-top-navbar ${isFixed ? 'fixed-header' : ''}`}>
@@ -369,14 +367,11 @@ const Header = () => {
                         <div className="top-logo">
                             <a href="index.html" className="logo">
                                 <img src="assets/images/inalgo.png" className="img-fluid" alt="" />
-                                {/* <span>XRay</span> */}
                             </a>
                         </div>
                     </div>
                     {role === 'Admin' ? (
                         <nav className="navbar navbar-expand-lg navbar-light p-0">
-
-
                             <button className='btn btn-primary mx-4' onClick={() => setShowModal(true)}>Auto Login</button>
                             <button
                                 className="navbar-toggler ms-3"
@@ -392,29 +387,6 @@ const Header = () => {
                             <button className='me-3 menusidebar' onClick={toggleSidebar}>
                                 <i className="ri-more-fill" />
                             </button>
-
-                            {/* <div className="iq-menu-bt-sidebar">
-                                <div className="iq-menu-bt align-self-center">
-                                    <div onClick={handleClick} className={`wrapper-menu ${isActive ? 'open' : ''}`}>
-                                        <div className="main-circle">
-                                            <i className="ri-more-fill" />
-                                        </div>
-                                        <div className="hover-circle">
-                                            <i className="ri-more-2-fill" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> 
-                            <div className="iq-menu-bt align-self-center" style={{ color: "#000" }} onClick={toggleSidebar}>
-                                <div className="wrapper-menu">
-                                    <div className="main-circle">
-                                        <i className="ri-more-fill" />
-                                    </div>
-                                    <div className="hover-circle">
-                                        <i className="ri-more-2-fill" />
-                                    </div>
-                                </div>
-                            </div> */}
                             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                                 <ul className="navbar-nav ms-auto navbar-list align-items-center">
                                     <li className="nav-item">
@@ -445,14 +417,10 @@ const Header = () => {
 
 
                                     <li className={`nav-item ${activeElement === 'profile' ? 'iq-show' : ''}`}>
-
                                         <a href="#"
-
                                             className={`search-toggle d-flex align-items-center iq-waves-effectt ${activeElement === 'profile' ? 'active' : ''}`}
-
                                             onClick={(e) => handleClick(e, 'profile')}
                                         >
-
                                             <div className="caption">
                                                 <button className="btn btn-primary iq-sign-btn" onClick={logout} role="button">
                                                     Log out
@@ -484,17 +452,17 @@ const Header = () => {
                             <button className='me-3 menusidebar' onClick={toggleSidebar}>
                                 <i className="ri-more-fill" />
                             </button>
-                            <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                                <div className="custom-control custom-switch custom-switch-text custom-switch-color custom-control-inline ms-5">
-                                    <div className="custom-switch-inner">
 
+
+                            <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                                {getBrokerName && getBrokerName != "Demo" && <div className="custom-control custom-switch custom-switch-text custom-switch-color custom-control-inline ms-5">
+                                    <div className="custom-switch-inner">
                                         <input
                                             type="checkbox"
                                             className="custom-control-input"
                                             id="customSwitch-11"
                                             checked={getTradingStatus}
                                             onChange={handleToggle}
-
                                         />
                                         <label
                                             className="custom-control-label"
@@ -503,8 +471,8 @@ const Header = () => {
                                             data-off-label="Paper trading on"
                                         ></label>
                                     </div>
-
                                 </div>
+                                }
                                 <ul className="navbar-nav ms-auto navbar-list align-items-center">
                                     {
                                         getBrokerName && getBrokerName == "Demo" ?
@@ -512,7 +480,6 @@ const Header = () => {
                                                 <button
                                                     type="button"
                                                     className="btn btn-primary mt-4 btn1"
-
                                                 >
                                                     Demo Account
                                                 </button>
@@ -621,6 +588,8 @@ const Header = () => {
                                     </li>
                                 </ul>
                             </div>
+
+
 
                         </nav>
                     )}

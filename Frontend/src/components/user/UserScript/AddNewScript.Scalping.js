@@ -843,10 +843,8 @@ const AddClient = () => {
 
   useEffect(() => {
     formik.setFieldValue('Group', "")
-    formik.setFieldValue('HoldExit', "")
     formik.setFieldValue('HigherRange', 0)
-    formik.setFieldValue('LowerRange', 0)
-    formik.setFieldValue('TStype', "")
+    formik.setFieldValue('LowerRange', 0) 
     formik.setFieldValue('EntryRange', 0)
     formik.setFieldValue('EntryPrice', 0)
   }, [formik.values.Strategy])

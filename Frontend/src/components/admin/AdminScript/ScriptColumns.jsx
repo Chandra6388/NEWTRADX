@@ -90,7 +90,7 @@ export const columns = (handleDelete)=>[
     },
     {
         name: "Quantity",
-        label: "Quantity",
+        label: "Lot",
         options: {
             filter: true,
             sort: true,
@@ -477,7 +477,7 @@ export const columns1 =(handleDelete)=> [
     },
     {
         name: "Lot Size",
-        label: "Quantity",
+        label: "Lot",
         options: {
             filter: true,
             sort: true,

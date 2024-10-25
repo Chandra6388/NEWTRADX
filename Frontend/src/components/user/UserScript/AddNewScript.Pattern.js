@@ -395,7 +395,7 @@ const AddClient = () => {
             label_size: 12,
             headingtype: 2,
             hiding: false,
-            col_size: 4,
+            col_size: 3,
             disable: false,
         },
         {
@@ -408,7 +408,7 @@ const AddClient = () => {
             })),
             label_size: 12,
             hiding: false,
-            col_size: 4,
+            col_size: 3,
             headingtype: 2,
             disable: false,
         },
@@ -427,12 +427,9 @@ const AddClient = () => {
             label_size: 12,
             hiding: false,
             headingtype: 2,
-            col_size: 4,
+            col_size: 3,
             disable: false,
         },
-
-    ]
-    const ExitRuleArr = [
         {
             name: "TType",
             label: "Transaction Type",
@@ -443,11 +440,15 @@ const AddClient = () => {
 
             ],
             label_size: 12,
-            headingtype: 3,
+            headingtype: 2,
             hiding: false,
-            col_size: 4,
+            col_size: 3,
             disable: false,
         },
+
+    ]
+    const ExitRuleArr = [
+       
         {
             name: "Targetvalue",
             label: "Target",
