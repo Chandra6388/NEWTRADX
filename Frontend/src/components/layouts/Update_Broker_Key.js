@@ -10,10 +10,10 @@ const Update_Broker_Key = ({ closeModal, isVisible, Role }) => {
     const userName = localStorage.getItem("name");
     const [refresh, setRefresh] = useState(false);
     const [upDateData, setUpDateData] = useState({ data: [] });
-    
-    
-    
-    
+
+
+
+
     const [userDetails, setUserDetails] = useState({ loading: true, data: {} });
     const fetchData = async () => {
         if (Role == 'User') {
@@ -44,9 +44,25 @@ const Update_Broker_Key = ({ closeModal, isVisible, Role }) => {
         },
         validate: (values) => {
             const errors = {};
-            if (!values.username && (values.BrokerName.toUpperCase() === "ALICEBLUE" || values.BrokerName.toUpperCase() === "5PAISA")) {
-                errors.username = values.BrokerName.toUpperCase() === "ALICEBLUE" ? "Please Enter Username" : formik.values.BrokerName.toUpperCase() === "5PAISA" ? "Please Enter App Name" : "Please Enter Username"
+            if (!values.username && (
+                values.BrokerName.toUpperCase() === "ALICEBLUE" ||
+                values.BrokerName.toUpperCase() === "5PAISA" ||
+                values.BrokerName.toUpperCase() === "ZEBULL" ||
+                values.BrokerName.toUpperCase() === "MANDOT" ||
+                values.BrokerName.toUpperCase() === "INDIRA" ||
+                values.BrokerName.toUpperCase() === "KOTAK"
+
+
+            )) {
+                errors.username = values.BrokerName.toUpperCase() === "ALICEBLUE" ? "Please Enter Username" :
+                    formik.values.BrokerName.toUpperCase() === "5PAISA" ? "Please Enter App Name" :
+                        formik.values.BrokerName.toUpperCase() === "ZEBULL" ? "Please Enter Username" :
+                            formik.values.BrokerName.toUpperCase() === "MANDOT" ? "Please Enter Username" :
+                                formik.values.BrokerName.toUpperCase() === "INDIRA" ? "Please Enter Username" :
+                                    formik.values.BrokerName.toUpperCase() === "KOTAK" ? "Please Enter User ID (Received in Email)" :
+                                        "Please Enter Username"
             }
+
             if (!values.api_key && (
                 values.BrokerName.toUpperCase() === "ANGEL" ||
                 values.BrokerName.toUpperCase() === "ALICEBLUE" ||
@@ -55,8 +71,12 @@ const Update_Broker_Key = ({ closeModal, isVisible, Role }) => {
                 values.BrokerName.toUpperCase() === "5PAISA" ||
                 values.BrokerName.toUpperCase() === "MASTERTRUST" ||
                 values.BrokerName.toUpperCase() === "FYERS" ||
-                values.BrokerName.toUpperCase() === "DHAN")) {
-
+                values.BrokerName.toUpperCase() === "KOTAK" ||
+                values.BrokerName.toUpperCase() === "ZEBULL" ||
+                values.BrokerName.toUpperCase() === "MANDOT" ||
+                values.BrokerName.toUpperCase() === "INDIRA" ||
+                values.BrokerName.toUpperCase() === "DHAN"
+            )) {
                 errors.api_key = values.BrokerName.toUpperCase() === "ANGEL" ? "Please Enter API Key" :
                     formik.values.BrokerName.toUpperCase() === "ALICEBLUE" ? "Please Enter API Key" :
                         formik.values.BrokerName.toUpperCase() === "ICICI" ? "Please Enter API Key" :
@@ -64,24 +84,41 @@ const Update_Broker_Key = ({ closeModal, isVisible, Role }) => {
                                 formik.values.BrokerName.toUpperCase() === "5PAISA" ? "Please Enter USER ID" :
                                     formik.values.BrokerName.toUpperCase() === "MASTERTRUST" ? "Please Enter App ID" :
                                         formik.values.BrokerName.toUpperCase() === "FYERS" ? "Please Enter App Client ID" :
-                                            formik.values.BrokerName.toUpperCase() === "DHAN" ? "Please Enter Access Token" :
-                                                "Please Enter API Key"
+                                            formik.values.BrokerName.toUpperCase() === "KOTAK" ? "Please Enter Consumer Key" :
+                                                formik.values.BrokerName.toUpperCase() === "ZEBULL" ? "Please Enter App Api Key" :
+                                                    formik.values.BrokerName.toUpperCase() === "MANDOT" ? "Please Enter App Api Key" :
+                                                        formik.values.BrokerName.toUpperCase() === "INDIRA" ? "Please Enter App Api Key" :
+                                                            formik.values.BrokerName.toUpperCase() === "DHAN" ? "Please Enter Access Token" :
+
+                                                                "Please Enter API Key"
             }
+
             if (!values.Password && (
                 values.BrokerName.toUpperCase() === "UPSTOX" ||
                 values.BrokerName.toUpperCase() === "5PAISA" ||
                 values.BrokerName.toUpperCase() === "MASTERTRUST" ||
                 values.BrokerName.toUpperCase() === "FYERS" ||
-                values.BrokerName.toUpperCase() === "DHAN")) {
+                values.BrokerName.toUpperCase() === "ZEBULL" ||
+                values.BrokerName.toUpperCase() === "KOTAK" ||
+                values.BrokerName.toUpperCase() === "INDIRA" ||
+                values.BrokerName.toUpperCase() === "DHAN"
+            )) {
                 errors.Password = values.BrokerName.toUpperCase() === "UPSTOX" ? "Please Enter Redirect Url" :
                     values.BrokerName.toUpperCase() === "5PAISA" ? "Please Enter APP SOURCE" :
                         values.BrokerName.toUpperCase() === "MASTERTRUST" ? "Please Enter Client Secret" :
                             values.BrokerName.toUpperCase() === "FYERS" ? "Please Enter Secret Key" :
-                                values.BrokerName.toUpperCase() === "DHAN" ? "Please Enter Client ID" :
-                                    "Please Enter Password"
+                                values.BrokerName.toUpperCase() === "ZEBULL" ? "Please Enter User Password" :
+                                    values.BrokerName.toUpperCase() === "KOTAK" ? "Please Enter Demat Password" :
+                                        values.BrokerName.toUpperCase() === "INDIRA" ? "Please Enter User Password" :
+                                            values.BrokerName.toUpperCase() === "DHAN" ? "Please Enter Client ID" :
+                                                "Please Enter Password"
             }
 
-            if (!values.mobileno && (values.BrokerName.toUpperCase() === "ZERODHA" || values.BrokerName.toUpperCase() === "5PAISA")) {
+            if (!values.mobileno && (
+                values.BrokerName.toUpperCase() === "ZERODHA" || 
+                values.BrokerName.toUpperCase() === "5PAISA" || 
+                values.BrokerName.toUpperCase() === "KOTAK" 
+            )) {
                 errors.mobileno = values.BrokerName.toUpperCase() === "ALICEBLUE" ? "Please Enter Mobile No." :
                     values.BrokerName.toUpperCase() === "5PAISA" ? "Please Enter USER KEY" :
                         "Please Enter Mobile No."
@@ -103,7 +140,6 @@ const Update_Broker_Key = ({ closeModal, isVisible, Role }) => {
                                 values.BrokerName.toUpperCase() === "FYERS" ? "Please Enter Redirect Uri" :
                                     "Please Enter Mobile No."
             }
-
             return errors;
         },
         onSubmit: async (values) => {
@@ -285,8 +321,19 @@ const Update_Broker_Key = ({ closeModal, isVisible, Role }) => {
     const fields = [
         {
             name: "username",
-            label: formik.values.BrokerName.toUpperCase() === "ALICEBLUE" ? "Username " : formik.values.BrokerName.toUpperCase() === "5PAISA" ? "App Name" : formik.values.BrokerName.toUpperCase() === "ZEBULL" ? "Username" : formik.values.BrokerName.toUpperCase() === "MANDOT" ? "Username" : formik.values.BrokerName.toUpperCase() === "INDIRA" ? "Username" : formik.values.BrokerName.toUpperCase() === "KOTAK" ? "User ID (Received in Email) " : "Username",
-            showWhen: (values) => values.BrokerName.toUpperCase() === "ALICEBLUE" || values.BrokerName.toUpperCase() === "5PAISA" || values.BrokerName.toUpperCase() === "ZEBULL" || values.BrokerName.toUpperCase() === "MANDOT" || values.BrokerName.toUpperCase() === "INDIRA" || values.BrokerName.toUpperCase() === "KOTAK",
+            label: formik.values.BrokerName.toUpperCase() === "ALICEBLUE" ? "Username " :
+                formik.values.BrokerName.toUpperCase() === "5PAISA" ? "App Name" :
+                    formik.values.BrokerName.toUpperCase() === "ZEBULL" ? "Username" :
+                        formik.values.BrokerName.toUpperCase() === "MANDOT" ? "Username" :
+                            formik.values.BrokerName.toUpperCase() === "INDIRA" ? "Username" :
+                                formik.values.BrokerName.toUpperCase() === "KOTAK" ? "User ID (Received in Email) " :
+                                    "Username",
+            showWhen: (values) => values.BrokerName.toUpperCase() === "ALICEBLUE" ||
+                values.BrokerName.toUpperCase() === "5PAISA" ||
+                values.BrokerName.toUpperCase() === "ZEBULL" ||
+                values.BrokerName.toUpperCase() === "MANDOT" ||
+                values.BrokerName.toUpperCase() === "INDIRA" ||
+                values.BrokerName.toUpperCase() === "KOTAK",
             type: 'text',
             label_size: 12,
             col_size: 6,
@@ -318,7 +365,8 @@ const Update_Broker_Key = ({ closeModal, isVisible, Role }) => {
                 values.BrokerName.toUpperCase() === "KOTAK" ||
                 values.BrokerName.toUpperCase() === "ZEBULL" ||
                 values.BrokerName.toUpperCase() === "MANDOT" ||
-                values.BrokerName.toUpperCase() === "DHAN" || values.BrokerName.toUpperCase() === "INDIRA",
+                values.BrokerName.toUpperCase() === "DHAN" ||
+                values.BrokerName.toUpperCase() === "INDIRA",
             type: 'text',
             label_size: 12,
             col_size: 6,
@@ -343,7 +391,8 @@ const Update_Broker_Key = ({ closeModal, isVisible, Role }) => {
                 values.BrokerName.toUpperCase() === "FYERS" ||
                 values.BrokerName.toUpperCase() === "ZEBULL" ||
                 values.BrokerName.toUpperCase() === "KOTAK" ||
-                values.BrokerName.toUpperCase() === "DHAN" || values.BrokerName.toUpperCase() === "INDIRA",
+                values.BrokerName.toUpperCase() === "DHAN" ||
+                values.BrokerName.toUpperCase() === "INDIRA",
             disable: false,
             label_size: 12,
             col_size: 6,
@@ -368,8 +417,8 @@ const Update_Broker_Key = ({ closeModal, isVisible, Role }) => {
             label: formik.values.BrokerName.toUpperCase() === "5PAISA" ? "Encryption Key" :
                 formik.values.BrokerName.toUpperCase() === "KOTAK" ? "Password (Received in Email)" :
                     "API Password",
-
-            showWhen: (values) => values.BrokerName.toUpperCase() === "5PAISA" || values.BrokerName.toUpperCase() === "KOTAK",
+            showWhen: (values) => values.BrokerName.toUpperCase() === "5PAISA" ||
+                values.BrokerName.toUpperCase() === "KOTAK",
             label_size: 12,
             col_size: 6,
             disable: false,
@@ -395,7 +444,8 @@ const Update_Broker_Key = ({ closeModal, isVisible, Role }) => {
                 values.BrokerName.toUpperCase() === "ZEBULL" ||
                 values.BrokerName.toUpperCase() === "KOTAK" ||
                 values.BrokerName.toUpperCase() === "MANDOT" ||
-                values.BrokerName.toUpperCase() === "FYERS" || values.BrokerName.toUpperCase() === "INDIRA",
+                values.BrokerName.toUpperCase() === "FYERS" ||
+                values.BrokerName.toUpperCase() === "INDIRA",
             label_size: 12,
             col_size: 6,
             disable: false,

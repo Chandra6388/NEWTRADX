@@ -45,7 +45,7 @@ const Header = () => {
     const [setApiData, setSetApiData] = useState([]);
 
 
-    console.log("setApiData", setApiData[0]);  
+    console.log("setApiData", setApiData[0]);
     useEffect(() => {
         GetBalence()
         fetchData();
@@ -359,6 +359,16 @@ const Header = () => {
         setShowFunds(!showFunds);
         walletmodal(showFunds);
     };
+
+    const shouldRenderSwitch =
+        (getBrokerName && getBrokerName !== "Demo") &&
+        (
+            setApiData?.[0]?.DOB !== "" ||
+            setApiData?.[0]?.Password !== "" ||
+            setApiData?.[0]?.api_key !== "" ||
+            setApiData[0]?.username !== ""
+        );
+
     return (
         <>
             <div className={`iq-top-navbar ${isFixed ? 'fixed-header' : ''}`}>
@@ -455,24 +465,26 @@ const Header = () => {
 
 
                             <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                                {getBrokerName && getBrokerName != "Demo" && <div className="custom-control custom-switch custom-switch-text custom-switch-color custom-control-inline ms-5">
-                                    <div className="custom-switch-inner">
-                                        <input
-                                            type="checkbox"
-                                            className="custom-control-input"
-                                            id="customSwitch-11"
-                                            checked={getTradingStatus}
-                                            onChange={handleToggle}
-                                        />
-                                        <label
-                                            className="custom-control-label"
-                                            htmlFor="customSwitch-11"
-                                            data-on-label="Live trading on"
-                                            data-off-label="Paper trading on"
-                                        ></label>
+                                {shouldRenderSwitch && (
+                                    <div className="custom-control custom-switch custom-switch-text custom-switch-color custom-control-inline ms-5">
+                                        <div className="custom-switch-inner">
+                                            <input
+                                                type="checkbox"
+                                                className="custom-control-input"
+                                                id="customSwitch-11"
+                                                checked={getTradingStatus}
+                                                onChange={handleToggle}
+                                            />
+                                            <label
+                                                className="custom-control-label"
+                                                htmlFor="customSwitch-11"
+                                                data-on-label="Live trading on"
+                                                data-off-label="Paper trading on"
+                                            ></label>
+                                        </div>
                                     </div>
-                                </div>
-                                }
+                                )}
+
                                 <ul className="navbar-nav ms-auto navbar-list align-items-center">
                                     {
                                         getBrokerName && getBrokerName == "Demo" ?
