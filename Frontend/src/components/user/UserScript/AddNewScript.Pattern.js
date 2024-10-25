@@ -243,7 +243,7 @@ const AddClient = () => {
     });
 
     useEffect(() => {
-        formik.setFieldValue('Strategy', "CandlestickPattern")
+        formik.setFieldValue('Strategy', location?.state?.data?.scriptType?.data[location?.state?.data?.scriptType?.len]?.CombinePattern?.[0])
         formik.setFieldValue('Exchange', "NFO")
         formik.setFieldValue('Instrument', "FUTIDX")
         formik.setFieldValue('Timeframe', "1M")
@@ -256,6 +256,7 @@ const AddClient = () => {
         formik.setFieldValue('Trade_Count', 1)
 
     }, [])
+
 
     const get_Exchange = async () => {
         await GetExchange()

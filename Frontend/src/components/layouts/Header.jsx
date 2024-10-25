@@ -360,6 +360,16 @@ const Header = () => {
         walletmodal(showFunds);
     };
 
+    // api_key: '',
+    // mobileno: '',
+    // APIPassword: '',
+    // BrokerName: '',
+    // DOB: '',
+    // Password: '',
+    // username: '',
+    // broker: '',
+
+
     const shouldRenderSwitch =
         (getBrokerName && getBrokerName !== "Demo") &&
         (

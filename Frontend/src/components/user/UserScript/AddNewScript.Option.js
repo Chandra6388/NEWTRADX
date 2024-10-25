@@ -346,7 +346,7 @@ const AddClient = () => {
     });
 
     useEffect(() => {
-        formik.setFieldValue('Measurment_Type', location?.state?.data?.scriptType?.data?.[location?.state?.data?.scriptType?.len - 1]?.['Option Strategy'][0])
+        formik.setFieldValue('Measurment_Type', location?.state?.data?.scriptType?.data?.[location?.state?.data?.scriptType?.len].CombineOption?.[0])
         formik.setFieldValue('Symbol', "BANKNIFTY")
         formik.setFieldValue('Expirytype', "Weekly")
         formik.setFieldValue('ETPattern', "Future")
@@ -755,12 +755,13 @@ const AddClient = () => {
 
     ]
 
+
     const fields = [
         {
             name: "Measurment_Type",
             label: "Option Type",
             type: "select",
-            options: location?.state?.data?.scriptType?.data?.[location?.state?.data?.scriptType?.len - 1]?.['Option Strategy'].map((item) => {
+            options: location?.state?.data?.scriptType?.data?.[location?.state?.data?.scriptType?.len]?.CombineOption.map((item) => {
                 return { label: item, value: item }
             }),
             hiding: false,
