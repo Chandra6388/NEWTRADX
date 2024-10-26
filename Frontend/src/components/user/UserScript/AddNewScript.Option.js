@@ -380,7 +380,7 @@ const AddClient = () => {
             ],
             hiding: false,
             label_size: 12,
-            col_size: 4,
+            col_size: 3,
             headingtype: 1,
             disable: false,
         },
@@ -394,7 +394,7 @@ const AddClient = () => {
             ],
             hiding: false,
             label_size: 12,
-            col_size: 4,
+            col_size: 3,
             headingtype: 1,
             disable: false,
         }
