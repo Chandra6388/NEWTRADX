@@ -389,7 +389,7 @@ const AddClient = () => {
             name: "Timeframe",
             label: "Time Frame",
             type: "select",
-            options: getTimeFrame && getTimeFrame.data.map((item) => ({
+            options: getTimeFrame && getTimeFrame?.data?.map((item) => ({
                 label: item,
                 value: item
             })),
@@ -400,7 +400,7 @@ const AddClient = () => {
             disable: false,
         },
         {
-            name: "Strategy",
+            name: "Strategy",   
             label: "Pattern Type",
             type: "select",
             options: location?.state?.data?.scriptType?.data[location?.state?.data?.scriptType?.len]?.CombinePattern.map((item) => ({

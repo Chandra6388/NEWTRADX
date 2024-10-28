@@ -9,6 +9,7 @@ import Swal from 'sweetalert2';
 import { IndianRupee, Eye } from 'lucide-react';
 import { LastPattern, DataStart, AutoLogin } from '../CommonAPI/Admin'
 import { GetUserBalence, GetBrokerData } from '../CommonAPI/User'
+import { jwtDecode } from 'jwt-decode';
 
 const Header = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -43,12 +44,23 @@ const Header = () => {
     const [walletBalance, setWalletBalance] = useState('');
     const [setApiData, setSetApiData] = useState([]);
 
+
+    const clearSession = () => { 
+        var decoded = jwtDecode(token);
+        console.log(decoded);
+        if (decoded.exp * 1000 < new Date().getTime()) {
+            console.log("Token Expired");
+            localStorage.clear(); 
+            window.location.reload();
+        }
+    };
+
     useEffect(() => {
         GetBalence()
         fetchData();
         setApiKeyData();
+        clearSession();
     }, [])
-
 
     const setApiKeyData = async () => {
         if (role == 'User') {
@@ -325,7 +337,7 @@ const Header = () => {
                 console.error("Error in GetUserBalence request", error);
             });
     }
-    
+
     function formatNumber(value) {
         if (value < 1000) {
             return value.toString();
@@ -356,18 +368,6 @@ const Header = () => {
         setShowFunds(!showFunds);
         walletmodal(showFunds);
     };
-
-      
-    const shouldRenderSwitch =
-        (getBrokerName && getBrokerName !== "Demo") &&
-        (
-            setApiData?.[0]?.DOB !== "" ||
-            setApiData?.[0]?.Password !== "" ||
-            setApiData?.[0]?.api_key !== "" ||
-            setApiData[0]?.username !== "" || 
-            setApiData[0]?.APIPassword !== "" ||
-            setApiData[0]?.mobileno !== "" 
-        );
 
     return (
         <>
@@ -465,7 +465,7 @@ const Header = () => {
 
 
                             <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                                {shouldRenderSwitch && (
+                                {getBrokerName && getBrokerName !== "Demo" && (
                                     <div className="custom-control custom-switch custom-switch-text custom-switch-color custom-control-inline ms-5">
                                         <div className="custom-switch-inner">
                                             <input
@@ -506,10 +506,8 @@ const Header = () => {
                                                         Set API Key
                                                     </button>
                                                 </li>
-
                                             </>
                                     }
-
                                     <li className="nav-item mx-3" onClick={toggleFundsVisibility}>
                                         <button
                                             type="button"
@@ -647,20 +645,12 @@ const Header = () => {
                                     <div className='m-4'>
                                         <button className='btn btn-primary' onClick={handleLastPattern}>Last Pattern</button>
                                     </div>
-
                                 </div>
-
-
-
                             </div>
-
-
                         </div>
                     </div>
                 </div>
-            }
-
-
+            } 
             <UpdateBrokerKey isVisible={isModalVisible} closeModal={handleCloseModal} Role={role} />
 
         </>

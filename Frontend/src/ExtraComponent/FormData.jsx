@@ -55,9 +55,9 @@ const DynamicForm = ({
           {page_title ? (
             <div className="card-header" style={{ backgroundColor: '#fff' }}>
               {page_title ? (
-                <h5 className="card-title mb-0 w-auto mt-2 mb-2">
-                  <i className="fa-regular fa-circle-user pe-2"></i>
-                  {page_title}{" "}
+                <h5 className="card-title mb-0 w-auto mt-2 mb-2" style={{fontWeight:'600', fontSize: '23px'}}>
+                  <i className="fa-regular fa-circle-user pe-2" ></i>
+                  {page_title}
                 </h5>
               ) : (
                 ""

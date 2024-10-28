@@ -9,10 +9,7 @@ const Profile = () => {
     })
 
     const getprofiledata = async () => {
-        const data = {
-            username: username,
-
-        }
+        const data = { username: username }
         await Get_Profile_Data(data).then((response) => {
             if (response.Data) {
                 setData({
@@ -40,7 +37,7 @@ const Profile = () => {
             <div className="container-fluid">
                 <div className="row">
                     <div className="col-lg-4">
-                        <div className="iq-card">
+                        <div className="iq-card h-100">
                             <div className="iq-card-body ps-0 pe-0 pt-0">
                                 <div className="docter-details-block">
                                     <div
@@ -54,23 +51,24 @@ const Profile = () => {
                                             className="avatar-130 img-fluid"
                                         />
                                     </div>
-                                    <div className="text-center mt-3 ps-3 pe-3">
-                                        <h4>
-                                            <b>{data.Username}</b>
-                                        </h4>
-
-
+                                    <div className="iq-card-body">
+                                        <div className="m-0 p-0">
+                                            <div className="row">
+                                                <div className="col-6">Username :</div>
+                                                <div className="col-6">{data && data.data.Username} </div>
+                                                <div className="col-6">Mobile No :</div>
+                                                <div className="col-6">{data && data.data.Mobile_No} </div>
+                                                <div className="col-6">Email Id :</div>
+                                                <div className="col-6">{data && data.data.EmailId}</div>
+                                            </div>
+                                        </div>
                                     </div>
-
-
                                 </div>
                             </div>
                         </div>
-
-
                     </div>
                     <div className="col-lg-8">
-                        <div className="iq-card">
+                        <div className="iq-card h-100">
                             <div className="iq-card-header d-flex justify-content-between">
                                 <div className="iq-header-title">
                                     <h4 className="card-title">Personal Information</h4>
@@ -79,26 +77,14 @@ const Profile = () => {
                             <div className="iq-card-body">
                                 <div className="about-info m-0 p-0">
                                     <div className="row">
-                                        <div className="col-4">Username:</div>
-                                        <div className="col-8">{data && data.data.Username} </div>
-                                        <div className="col-4">Mobile No :</div>
-                                        <div className="col-8">{data && data.data.Mobile_No} </div>
-                                        <div className="col-4">Email Id:</div>
-                                        <div className="col-8">{data && data.data.EmailId}</div>
                                         <div className="col-4">BrokerName :</div>
                                         <div className="col-8">{data && data.data.BrokerName}</div>
                                         <div className="col-4">Number of Script :</div>
                                         <div className="col-8">{data && data.data.NumberofScript}</div>
                                         <div className="col-4">Group :</div>
-                                        {
-                                            data.loading && data && data.data.Group.length > 0 ? <div className="col-8">{data && data.data.Group.join(' , ')}</div> :
-                                                <div className="col-8">No Group Available</div>
-                                        }
+                                        {  data.loading && data && data.data.Group.length > 0 ? <div className="col-8">{data && data.data.Group.join(' , ')}</div> :  <div className="col-8">No Group Available</div>}
                                         <div className="col-4">Plan Name :</div>
-                                        {
-                                            data.loading && data && data?.data?.Planname?.length > 0 ? <div className="col-8">{data && data?.data?.Planname.join(' , ')}</div> :
-                                                <div className="col-8">No Plan Available</div>
-                                        }
+                                        {data.loading && data && data?.data?.Planname?.length > 0 ? <div className="col-8">{data && data?.data?.Planname.join(' , ')}</div> : <div className="col-8">No Plan Available</div> }
                                     </div>
                                 </div>
                             </div>
