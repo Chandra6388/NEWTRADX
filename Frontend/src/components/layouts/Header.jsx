@@ -45,12 +45,11 @@ const Header = () => {
     const [setApiData, setSetApiData] = useState([]);
 
 
-    const clearSession = () => { 
+    const clearSession = () => {
         var decoded = jwtDecode(token);
-        console.log(decoded);
         if (decoded.exp * 1000 < new Date().getTime()) {
             console.log("Token Expired");
-            localStorage.clear(); 
+            localStorage.clear();
             window.location.reload();
         }
     };
@@ -650,7 +649,7 @@ const Header = () => {
                         </div>
                     </div>
                 </div>
-            } 
+            }
             <UpdateBrokerKey isVisible={isModalVisible} closeModal={handleCloseModal} Role={role} />
 
         </>
